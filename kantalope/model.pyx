@@ -1,3 +1,5 @@
+#cython: boundscheck=False
+#cython: cdivision=True
 # model.pyx
 # Author: Jacob Schreiber <jmschr@cs.washington.edu>
 
@@ -5,13 +7,10 @@
 Lock-Free Parallel K-means using Stochastic Descent.
 '''
 
-from cython.parallel import parallel, prange
-from libc.math cimport sqrt as csqrt
+from cython.parallel import prange
 
 import numpy
 cimport numpy
-
-from joblib import Parallel, delayed
 
 cdef class Centroid( object ):
 	"""
@@ -45,7 +44,7 @@ cdef class Centroid( object ):
 		for i in range(self.d):
 			distance += ( self.position[i] - X[i] ) ** 2.0
 
-		return csqrt(distance)
+		return distance
 
 	cdef void summarize( self, double* X, double weight ) nogil:
 		"""Add this to the growing summary statistics."""
@@ -75,7 +74,7 @@ cdef class Kantalope( object ):
 		self.k = k
 		self.centroids = numpy.empty(k, dtype=numpy.object_)
 
-	cpdef fit( self, numpy.ndarray X, nthreads=1 ):
+	cpdef fit( self, numpy.ndarray X, int nthreads=1 ):
 		"""Fit to the data using random initializations."""
 
 		cdef int i, y
@@ -87,11 +86,10 @@ cdef class Kantalope( object ):
 		for i in range(self.k):
 			self.centroids[i] = Centroid( X[i] )
 
-		with nogil, parallel( num_threads=nthreads ):
-			for i in prange(n):
-				y = self.__predict_single_point( X_data + i*d, d, centroids )
-				(<Centroid> centroids[y]).summarize( X_data + i*d, 1 )
-				(<Centroid> centroids[y]).from_summaries()
+		for i in prange(n, nogil=True, num_threads=nthreads):
+			y = self.__predict_single_point( X_data + i*d, d, centroids )
+			(<Centroid> centroids[y]).summarize( X_data + i*d, 1 )
+			(<Centroid> centroids[y]).from_summaries()
 
 	def predict( self, X ):
 		"""Predict the centroid associated with each point."""

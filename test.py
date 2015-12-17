@@ -7,12 +7,12 @@ import seaborn as sns
 
 from kantalope import *
 
-
-X = numpy.concatenate(( numpy.random.randn(50000, 5000) * 0.5, numpy.random.randn(50000, 5000) * 0.5 + 2 ))
+n = 50
+X = numpy.concatenate(list( numpy.random.randn(10000, 50) * 0.5 + i for i in range(n)))
 numpy.random.shuffle(X)
 
 for i in range(1, 9):
-	clf = Kantalope(2)
+	clf = Kantalope(n)
 	tic = time.time()
 	clf.fit(X, i)
 	print time.time() - tic
