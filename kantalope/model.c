@@ -234,9 +234,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__kantalope__model
-#define __PYX_HAVE_API__kantalope__model
-#include "math.h"
+#define __PYX_HAVE__kantalope
+#define __PYX_HAVE_API__kantalope
 #include "string.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -686,8 +685,7 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
 
 /*--- Type declarations ---*/
-struct __pyx_obj_9kantalope_5model_Centroid;
-struct __pyx_obj_9kantalope_5model_Kantalope;
+struct __pyx_obj_9kantalope_Kantalope;
 
 /* "../../anaconda/lib/python2.7/site-packages/Cython/Includes/numpy/__init__.pxd":764
  * ctypedef npy_longdouble longdouble_t
@@ -724,87 +722,61 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  * cdef inline object PyArray_MultiIterNew1(a):
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
-struct __pyx_opt_args_9kantalope_5model_9Kantalope_fit;
+struct __pyx_opt_args_9kantalope_9Kantalope_fit;
+struct __pyx_opt_args_9kantalope_9Kantalope_predict;
 
-/* "kantalope/model.pyx":78
+/* "kantalope/model.pyx":31
  * 		self.k = k
  * 
- * 	cpdef fit( self, numpy.ndarray X, nthreads=1 ):             # <<<<<<<<<<<<<<
+ * 	cpdef fit( self, numpy.ndarray X, int nthreads=1 ):             # <<<<<<<<<<<<<<
  * 		"""Fit to the data using random initializations."""
  * 
  */
-struct __pyx_opt_args_9kantalope_5model_9Kantalope_fit {
+struct __pyx_opt_args_9kantalope_9Kantalope_fit {
   int __pyx_n;
-  PyObject *nthreads;
+  int nthreads;
 };
 
-/* "kantalope/model.pyx":15
- * cimport numpy
+/* "kantalope/model.pyx":74
+ * 				self.centroids[m] = self.sums[m] / self.weights[m]
  * 
- * cdef class Centroid( object ):             # <<<<<<<<<<<<<<
- * 	"""
- * 	A centroid which stores summary statistics and values.
+ * 	cpdef predict( self, numpy.ndarray X, int nthreads=1 ):             # <<<<<<<<<<<<<<
+ * 		"""Predict nearest centroid, python wrapper."""
+ * 
  */
-struct __pyx_obj_9kantalope_5model_Centroid {
-  PyObject_HEAD
-  struct __pyx_vtabstruct_9kantalope_5model_Centroid *__pyx_vtab;
-  int d;
-  double summary_weight;
-  PyArrayObject *summary_ndarray;
-  double *summary;
-  PyArrayObject *position_ndarray;
-  double *position;
+struct __pyx_opt_args_9kantalope_9Kantalope_predict {
+  int __pyx_n;
+  int nthreads;
 };
 
-
-/* "kantalope/model.pyx":67
- * 
+/* "kantalope/model.pyx":17
+ * cdef double inf = float("inf")
  * 
  * cdef class Kantalope( object ):             # <<<<<<<<<<<<<<
  * 	"""Kantalope kmeans estimator."""
  * 
  */
-struct __pyx_obj_9kantalope_5model_Kantalope {
+struct __pyx_obj_9kantalope_Kantalope {
   PyObject_HEAD
-  struct __pyx_vtabstruct_9kantalope_5model_Kantalope *__pyx_vtab;
+  struct __pyx_vtabstruct_9kantalope_Kantalope *__pyx_vtab;
   int k;
-  PyArrayObject *centroids;
-  PyArrayObject *summaries;
-  PyArrayObject *weights;
+  PyArrayObject *centroids_ndarray;
+  PyArrayObject *sums_ndarray;
+  PyArrayObject *weights_ndarray;
+  double *centroids;
+  double *sums;
+  double *weights;
 };
 
 
 
-/* "kantalope/model.pyx":15
- * cimport numpy
- * 
- * cdef class Centroid( object ):             # <<<<<<<<<<<<<<
- * 	"""
- * 	A centroid which stores summary statistics and values.
- */
-
-struct __pyx_vtabstruct_9kantalope_5model_Centroid {
-  double (*distance)(struct __pyx_obj_9kantalope_5model_Centroid *, double *);
-  void (*summarize)(struct __pyx_obj_9kantalope_5model_Centroid *, double *, double);
-  void (*from_summaries)(struct __pyx_obj_9kantalope_5model_Centroid *);
+struct __pyx_vtabstruct_9kantalope_Kantalope {
+  PyObject *(*fit)(struct __pyx_obj_9kantalope_Kantalope *, PyArrayObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_9Kantalope_fit *__pyx_optional_args);
+  void (*_fit)(struct __pyx_obj_9kantalope_Kantalope *, double *, int, int, int);
+  PyObject *(*predict)(struct __pyx_obj_9kantalope_Kantalope *, PyArrayObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_9Kantalope_predict *__pyx_optional_args);
+  int (*_predict)(struct __pyx_obj_9kantalope_Kantalope *, double *, int);
 };
-static struct __pyx_vtabstruct_9kantalope_5model_Centroid *__pyx_vtabptr_9kantalope_5model_Centroid;
-
-
-/* "kantalope/model.pyx":67
- * 
- * 
- * cdef class Kantalope( object ):             # <<<<<<<<<<<<<<
- * 	"""Kantalope kmeans estimator."""
- * 
- */
-
-struct __pyx_vtabstruct_9kantalope_5model_Kantalope {
-  PyObject *(*fit)(struct __pyx_obj_9kantalope_5model_Kantalope *, PyArrayObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_5model_9Kantalope_fit *__pyx_optional_args);
-  int (*_predict_single_point)(struct __pyx_obj_9kantalope_5model_Kantalope *, PyArrayObject *, int __pyx_skip_dispatch);
-  int (*__pyx___predict_single_point)(struct __pyx_obj_9kantalope_5model_Kantalope *, double *, int, double *);
-};
-static struct __pyx_vtabstruct_9kantalope_5model_Kantalope *__pyx_vtabptr_9kantalope_5model_Kantalope;
+static struct __pyx_vtabstruct_9kantalope_Kantalope *__pyx_vtabptr_9kantalope_Kantalope;
 
 /* --- Runtime support code (head) --- */
 #ifndef CYTHON_REFNANNY
@@ -895,63 +867,21 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
-#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
-    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
-               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
-#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
-                                                     int is_list, int wraparound, int boundscheck);
-
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
-
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
-
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
 #else
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetSlice(
-        PyObject* obj, Py_ssize_t cstart, Py_ssize_t cstop,
-        PyObject** py_start, PyObject** py_stop, PyObject** py_slice,
-        int has_cstart, int has_cstop, int wraparound);
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
-#endif
-
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
-
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
-#else
-#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
-#endif
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
     const char *name, int exact);
 
 static CYTHON_INLINE void __Pyx_ErrRestore(PyObject *type, PyObject *value, PyObject *tb);
 static CYTHON_INLINE void __Pyx_ErrFetch(PyObject **type, PyObject **value, PyObject **tb);
-
-static void __Pyx_WriteUnraisable(const char *name, int clineno,
-                                  int lineno, const char *filename,
-                                  int full_traceback, int nogil);
 
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
 
@@ -985,6 +915,18 @@ static int __Pyx_SetVtable(PyObject *dict, void *vtable);
 
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
+static double __Pyx__PyObject_AsDouble(PyObject* obj);
+#if CYTHON_COMPILING_IN_PYPY
+#define __Pyx_PyObject_AsDouble(obj)\
+(likely(PyFloat_CheckExact(obj)) ? PyFloat_AS_DOUBLE(obj) :\
+ likely(PyInt_CheckExact(obj)) ?\
+ PyFloat_AsDouble(obj) : __Pyx__PyObject_AsDouble(obj))
+#else
+#define __Pyx_PyObject_AsDouble(obj)\
+((likely(PyFloat_CheckExact(obj))) ?\
+ PyFloat_AS_DOUBLE(obj) : __Pyx__PyObject_AsDouble(obj))
+#endif
+
 typedef struct {
     int code_line;
     PyCodeObject* code_object;
@@ -1001,8 +943,6 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
-
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
@@ -1112,6 +1052,8 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES value);
 
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
+
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
 static int __Pyx_check_binary_version(void);
@@ -1130,14 +1072,10 @@ static PyTypeObject *__Pyx_ImportType(const char *module_name, const char *class
 
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static double __pyx_f_9kantalope_5model_8Centroid_distance(struct __pyx_obj_9kantalope_5model_Centroid *__pyx_v_self, double *__pyx_v_X); /* proto*/
-static void __pyx_f_9kantalope_5model_8Centroid_summarize(struct __pyx_obj_9kantalope_5model_Centroid *__pyx_v_self, double *__pyx_v_X, double __pyx_v_weight); /* proto*/
-static void __pyx_f_9kantalope_5model_8Centroid_from_summaries(struct __pyx_obj_9kantalope_5model_Centroid *__pyx_v_self); /* proto*/
-static PyObject *__pyx_f_9kantalope_5model_9Kantalope_fit(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_5model_9Kantalope_fit *__pyx_optional_args); /* proto*/
-static int __pyx_f_9kantalope_5model_9Kantalope__predict_single_point(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_skip_dispatch); /* proto*/
-static int __pyx_f_9kantalope_5model_9Kantalope___predict_single_point(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, double *__pyx_v_X, int __pyx_v_d, double *__pyx_v_centroids); /* proto*/
-
-/* Module declarations from 'libc.math' */
+static PyObject *__pyx_f_9kantalope_9Kantalope_fit(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_9Kantalope_fit *__pyx_optional_args); /* proto*/
+static void __pyx_f_9kantalope_9Kantalope__fit(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, double *__pyx_v_X, CYTHON_UNUSED int __pyx_v_n, int __pyx_v_d, CYTHON_UNUSED int __pyx_v_nthreads); /* proto*/
+static PyObject *__pyx_f_9kantalope_9Kantalope_predict(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_9Kantalope_predict *__pyx_optional_args); /* proto*/
+static int __pyx_f_9kantalope_9Kantalope__predict(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, double *__pyx_v_X, int __pyx_v_d); /* proto*/
 
 /* Module declarations from 'cpython.buffer' */
 
@@ -1168,15 +1106,14 @@ static PyTypeObject *__pyx_ptype_5numpy_ndarray = 0;
 static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, char *, char *, int *); /*proto*/
 
-/* Module declarations from 'kantalope.model' */
-static PyTypeObject *__pyx_ptype_9kantalope_5model_Centroid = 0;
-static PyTypeObject *__pyx_ptype_9kantalope_5model_Kantalope = 0;
-#define __Pyx_MODULE_NAME "kantalope.model"
-int __pyx_module_is_main_kantalope__model = 0;
+/* Module declarations from 'kantalope' */
+static PyTypeObject *__pyx_ptype_9kantalope_Kantalope = 0;
+static double __pyx_v_9kantalope_inf;
+#define __Pyx_MODULE_NAME "kantalope"
+int __pyx_module_is_main_kantalope = 0;
 
-/* Implementation of 'kantalope.model' */
+/* Implementation of 'kantalope' */
 static PyObject *__pyx_builtin_range;
-static PyObject *__pyx_builtin_xrange;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 static char __pyx_k_B[] = "B";
@@ -1199,26 +1136,21 @@ static char __pyx_k_Zd[] = "Zd";
 static char __pyx_k_Zf[] = "Zf";
 static char __pyx_k_Zg[] = "Zg";
 static char __pyx_k_fit[] = "fit";
-static char __pyx_k_copy[] = "copy";
+static char __pyx_k_inf[] = "inf";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_dtype[] = "dtype";
-static char __pyx_k_empty[] = "empty";
+static char __pyx_k_int32[] = "int32";
 static char __pyx_k_numpy[] = "numpy";
 static char __pyx_k_range[] = "range";
-static char __pyx_k_shape[] = "shape";
 static char __pyx_k_zeros[] = "zeros";
 static char __pyx_k_import[] = "__import__";
-static char __pyx_k_n_jobs[] = "n_jobs";
-static char __pyx_k_xrange[] = "xrange";
 static char __pyx_k_float64[] = "float64";
+static char __pyx_k_predict[] = "predict";
 static char __pyx_k_nthreads[] = "nthreads";
-static char __pyx_k_position[] = "position";
 static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
-static char __pyx_k_zeros_like[] = "zeros_like";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
-static char __pyx_k_predict_single_point[] = "_predict_single_point";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static char __pyx_k_Lock_Free_Parallel_K_means_usin[] = "\nLock-Free Parallel K-means using Stochastic Descent.\n";
 static char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
@@ -1232,39 +1164,33 @@ static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_X;
-static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_dtype;
-static PyObject *__pyx_n_s_empty;
 static PyObject *__pyx_n_s_fit;
 static PyObject *__pyx_n_s_float64;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_inf;
+static PyObject *__pyx_n_s_int32;
 static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_n_s_n_jobs;
 static PyObject *__pyx_kp_u_ndarray_is_not_C_contiguous;
 static PyObject *__pyx_kp_u_ndarray_is_not_Fortran_contiguou;
 static PyObject *__pyx_n_s_nthreads;
 static PyObject *__pyx_n_s_numpy;
-static PyObject *__pyx_n_s_position;
-static PyObject *__pyx_n_s_predict_single_point;
+static PyObject *__pyx_n_s_predict;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
-static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
-static PyObject *__pyx_n_s_xrange;
 static PyObject *__pyx_n_s_zeros;
-static PyObject *__pyx_n_s_zeros_like;
-static int __pyx_pf_9kantalope_5model_8Centroid___init__(struct __pyx_obj_9kantalope_5model_Centroid *__pyx_v_self, PyObject *__pyx_v_position); /* proto */
-static int __pyx_pf_9kantalope_5model_9Kantalope___init__(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyObject *__pyx_v_k, CYTHON_UNUSED PyObject *__pyx_v_n_jobs); /* proto */
-static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_2fit(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, PyObject *__pyx_v_nthreads); /* proto */
-static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_4predict(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyObject *__pyx_v_X); /* proto */
-static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_6_predict_single_point(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X); /* proto */
+static int __pyx_pf_9kantalope_9Kantalope___init__(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyObject *__pyx_v_k); /* proto */
+static PyObject *__pyx_pf_9kantalope_9Kantalope_2fit(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_v_nthreads); /* proto */
+static PyObject *__pyx_pf_9kantalope_9Kantalope_4predict(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_v_nthreads); /* proto */
+static PyObject *__pyx_pf_9kantalope_9Kantalope_17centroids_ndarray___get__(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self); /* proto */
+static int __pyx_pf_9kantalope_9Kantalope_17centroids_ndarray_2__set__(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_9kantalope_9Kantalope_17centroids_ndarray_4__del__(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
-static PyObject *__pyx_tp_new_9kantalope_5model_Centroid(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_9kantalope_5model_Kantalope(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_int_1;
+static PyObject *__pyx_tp_new_9kantalope_Kantalope(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
@@ -1272,18 +1198,18 @@ static PyObject *__pyx_tuple__4;
 static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
 
-/* "kantalope/model.pyx":29
- * 	cdef double* position
+/* "kantalope/model.pyx":28
+ * 	cdef double* weights
  * 
- * 	def __init__( self, position ):             # <<<<<<<<<<<<<<
- * 		self.d = position.shape[0]
- * 		self.position_ndarray = position
+ * 	def __init__( self, k ):             # <<<<<<<<<<<<<<
+ * 		self.k = k
+ * 
  */
 
 /* Python wrapper */
-static int __pyx_pw_9kantalope_5model_8Centroid_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_9kantalope_5model_8Centroid_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_position = 0;
+static int __pyx_pw_9kantalope_9Kantalope_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_9kantalope_9Kantalope_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_k = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1291,7 +1217,7 @@ static int __pyx_pw_9kantalope_5model_8Centroid_1__init__(PyObject *__pyx_v_self
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_position,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_k,0};
     PyObject* values[1] = {0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -1304,435 +1230,57 @@ static int __pyx_pw_9kantalope_5model_8Centroid_1__init__(PyObject *__pyx_v_self
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_position)) != 0)) kw_args--;
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_k)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
     }
-    __pyx_v_position = values[0];
+    __pyx_v_k = values[0];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("kantalope.model.Centroid.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("kantalope.Kantalope.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9kantalope_5model_8Centroid___init__(((struct __pyx_obj_9kantalope_5model_Centroid *)__pyx_v_self), __pyx_v_position);
+  __pyx_r = __pyx_pf_9kantalope_9Kantalope___init__(((struct __pyx_obj_9kantalope_Kantalope *)__pyx_v_self), __pyx_v_k);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_9kantalope_5model_8Centroid___init__(struct __pyx_obj_9kantalope_5model_Centroid *__pyx_v_self, PyObject *__pyx_v_position) {
+static int __pyx_pf_9kantalope_9Kantalope___init__(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyObject *__pyx_v_k) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  PyObject *__pyx_t_6 = NULL;
+  int __pyx_t_1;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
-
-  /* "kantalope/model.pyx":30
- * 
- * 	def __init__( self, position ):
- * 		self.d = position.shape[0]             # <<<<<<<<<<<<<<
- * 		self.position_ndarray = position
- * 		self.position = <double*> self.position_ndarray.data
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_position, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_self->d = __pyx_t_3;
-
-  /* "kantalope/model.pyx":31
- * 	def __init__( self, position ):
- * 		self.d = position.shape[0]
- * 		self.position_ndarray = position             # <<<<<<<<<<<<<<
- * 		self.position = <double*> self.position_ndarray.data
- * 
- */
-  if (!(likely(((__pyx_v_position) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_position, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __pyx_v_position;
-  __Pyx_INCREF(__pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_2);
-  __Pyx_GOTREF(__pyx_v_self->position_ndarray);
-  __Pyx_DECREF(((PyObject *)__pyx_v_self->position_ndarray));
-  __pyx_v_self->position_ndarray = ((PyArrayObject *)__pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "kantalope/model.pyx":32
- * 		self.d = position.shape[0]
- * 		self.position_ndarray = position
- * 		self.position = <double*> self.position_ndarray.data             # <<<<<<<<<<<<<<
- * 
- * 		self.summary_weight = 0.
- */
-  __pyx_v_self->position = ((double *)__pyx_v_self->position_ndarray->data);
-
-  /* "kantalope/model.pyx":34
- * 		self.position = <double*> self.position_ndarray.data
- * 
- * 		self.summary_weight = 0.             # <<<<<<<<<<<<<<
- * 		self.summary_ndarray = numpy.zeros(self.d, dtype=numpy.float64)
- * 		self.summary = <double*> self.summary_ndarray.data
- */
-  __pyx_v_self->summary_weight = 0.;
-
-  /* "kantalope/model.pyx":35
- * 
- * 		self.summary_weight = 0.
- * 		self.summary_ndarray = numpy.zeros(self.d, dtype=numpy.float64)             # <<<<<<<<<<<<<<
- * 		self.summary = <double*> self.summary_ndarray.data
- * 
- */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->d); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
-  __pyx_t_2 = 0;
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_6) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GIVEREF(__pyx_t_6);
-  __Pyx_GOTREF(__pyx_v_self->summary_ndarray);
-  __Pyx_DECREF(((PyObject *)__pyx_v_self->summary_ndarray));
-  __pyx_v_self->summary_ndarray = ((PyArrayObject *)__pyx_t_6);
-  __pyx_t_6 = 0;
-
-  /* "kantalope/model.pyx":36
- * 		self.summary_weight = 0.
- * 		self.summary_ndarray = numpy.zeros(self.d, dtype=numpy.float64)
- * 		self.summary = <double*> self.summary_ndarray.data             # <<<<<<<<<<<<<<
- * 
- * 	cdef double distance( self, double* X ) nogil:
- */
-  __pyx_v_self->summary = ((double *)__pyx_v_self->summary_ndarray->data);
 
   /* "kantalope/model.pyx":29
- * 	cdef double* position
  * 
- * 	def __init__( self, position ):             # <<<<<<<<<<<<<<
- * 		self.d = position.shape[0]
- * 		self.position_ndarray = position
- */
-
-  /* function exit code */
-  __pyx_r = 0;
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("kantalope.model.Centroid.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = -1;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "kantalope/model.pyx":38
- * 		self.summary = <double*> self.summary_ndarray.data
- * 
- * 	cdef double distance( self, double* X ) nogil:             # <<<<<<<<<<<<<<
- * 		"""Calculate the euclidean distance between this centroid and a point."""
- * 
- */
-
-static double __pyx_f_9kantalope_5model_8Centroid_distance(struct __pyx_obj_9kantalope_5model_Centroid *__pyx_v_self, double *__pyx_v_X) {
-  int __pyx_v_i;
-  double __pyx_v_distance;
-  double __pyx_r;
-  int __pyx_t_1;
-  int __pyx_t_2;
-
-  /* "kantalope/model.pyx":42
- * 
- * 		cdef int i
- * 		cdef double distance = 0             # <<<<<<<<<<<<<<
- * 
- * 		for i in range(self.d):
- */
-  __pyx_v_distance = 0.0;
-
-  /* "kantalope/model.pyx":44
- * 		cdef double distance = 0
- * 
- * 		for i in range(self.d):             # <<<<<<<<<<<<<<
- * 			distance += ( self.position[i] - X[i] ) ** 2.0
- * 
- */
-  __pyx_t_1 = __pyx_v_self->d;
-  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
-    __pyx_v_i = __pyx_t_2;
-
-    /* "kantalope/model.pyx":45
- * 
- * 		for i in range(self.d):
- * 			distance += ( self.position[i] - X[i] ) ** 2.0             # <<<<<<<<<<<<<<
- * 
- * 		return csqrt(distance)
- */
-    __pyx_v_distance = (__pyx_v_distance + pow(((__pyx_v_self->position[__pyx_v_i]) - (__pyx_v_X[__pyx_v_i])), 2.0));
-  }
-
-  /* "kantalope/model.pyx":47
- * 			distance += ( self.position[i] - X[i] ) ** 2.0
- * 
- * 		return csqrt(distance)             # <<<<<<<<<<<<<<
- * 
- * 	cdef void summarize( self, double* X, double weight ) nogil:
- */
-  __pyx_r = sqrt(__pyx_v_distance);
-  goto __pyx_L0;
-
-  /* "kantalope/model.pyx":38
- * 		self.summary = <double*> self.summary_ndarray.data
- * 
- * 	cdef double distance( self, double* X ) nogil:             # <<<<<<<<<<<<<<
- * 		"""Calculate the euclidean distance between this centroid and a point."""
- * 
- */
-
-  /* function exit code */
-  __pyx_L0:;
-  return __pyx_r;
-}
-
-/* "kantalope/model.pyx":49
- * 		return csqrt(distance)
- * 
- * 	cdef void summarize( self, double* X, double weight ) nogil:             # <<<<<<<<<<<<<<
- * 		"""Add this to the growing summary statistics."""
- * 
- */
-
-static void __pyx_f_9kantalope_5model_8Centroid_summarize(struct __pyx_obj_9kantalope_5model_Centroid *__pyx_v_self, double *__pyx_v_X, double __pyx_v_weight) {
-  int __pyx_v_i;
-  int __pyx_t_1;
-  int __pyx_t_2;
-  int __pyx_t_3;
-
-  /* "kantalope/model.pyx":54
- * 		cdef int i
- * 
- * 		self.summary_weight += weight             # <<<<<<<<<<<<<<
- * 		for i in range(self.d):
- * 			self.summary[i] += X[i]
- */
-  __pyx_v_self->summary_weight = (__pyx_v_self->summary_weight + __pyx_v_weight);
-
-  /* "kantalope/model.pyx":55
- * 
- * 		self.summary_weight += weight
- * 		for i in range(self.d):             # <<<<<<<<<<<<<<
- * 			self.summary[i] += X[i]
- * 
- */
-  __pyx_t_1 = __pyx_v_self->d;
-  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
-    __pyx_v_i = __pyx_t_2;
-
-    /* "kantalope/model.pyx":56
- * 		self.summary_weight += weight
- * 		for i in range(self.d):
- * 			self.summary[i] += X[i]             # <<<<<<<<<<<<<<
- * 
- * 	cdef void from_summaries( self ) nogil:
- */
-    __pyx_t_3 = __pyx_v_i;
-    (__pyx_v_self->summary[__pyx_t_3]) = ((__pyx_v_self->summary[__pyx_t_3]) + (__pyx_v_X[__pyx_v_i]));
-  }
-
-  /* "kantalope/model.pyx":49
- * 		return csqrt(distance)
- * 
- * 	cdef void summarize( self, double* X, double weight ) nogil:             # <<<<<<<<<<<<<<
- * 		"""Add this to the growing summary statistics."""
- * 
- */
-
-  /* function exit code */
-}
-
-/* "kantalope/model.pyx":58
- * 			self.summary[i] += X[i]
- * 
- * 	cdef void from_summaries( self ) nogil:             # <<<<<<<<<<<<<<
- * 		"""Use the growing summary statistics to update the centroid position."""
- * 
- */
-
-static void __pyx_f_9kantalope_5model_8Centroid_from_summaries(struct __pyx_obj_9kantalope_5model_Centroid *__pyx_v_self) {
-  int __pyx_v_i;
-  int __pyx_t_1;
-  int __pyx_t_2;
-
-  /* "kantalope/model.pyx":63
- * 		cdef int i
- * 
- * 		for i in range(self.d):             # <<<<<<<<<<<<<<
- * 			self.position[i] = self.summary[i] / self.summary_weight
- * 
- */
-  __pyx_t_1 = __pyx_v_self->d;
-  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
-    __pyx_v_i = __pyx_t_2;
-
-    /* "kantalope/model.pyx":64
- * 
- * 		for i in range(self.d):
- * 			self.position[i] = self.summary[i] / self.summary_weight             # <<<<<<<<<<<<<<
- * 
- * 
- */
-    (__pyx_v_self->position[__pyx_v_i]) = ((__pyx_v_self->summary[__pyx_v_i]) / __pyx_v_self->summary_weight);
-  }
-
-  /* "kantalope/model.pyx":58
- * 			self.summary[i] += X[i]
- * 
- * 	cdef void from_summaries( self ) nogil:             # <<<<<<<<<<<<<<
- * 		"""Use the growing summary statistics to update the centroid position."""
- * 
- */
-
-  /* function exit code */
-}
-
-/* "kantalope/model.pyx":75
- * 	cdef numpy.ndarray weights
- * 
- * 	def __init__( self, k, n_jobs=1 ):             # <<<<<<<<<<<<<<
- * 		self.k = k
- * 
- */
-
-/* Python wrapper */
-static int __pyx_pw_9kantalope_5model_9Kantalope_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_9kantalope_5model_9Kantalope_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_k = 0;
-  CYTHON_UNUSED PyObject *__pyx_v_n_jobs = 0;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_k,&__pyx_n_s_n_jobs,0};
-    PyObject* values[2] = {0,0};
-    values[1] = ((PyObject *)__pyx_int_1);
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_k)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        case  1:
-        if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_n_jobs);
-          if (value) { values[1] = value; kw_args--; }
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      }
-    } else {
-      switch (PyTuple_GET_SIZE(__pyx_args)) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-    }
-    __pyx_v_k = values[0];
-    __pyx_v_n_jobs = values[1];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("kantalope.model.Kantalope.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return -1;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_9kantalope_5model_9Kantalope___init__(((struct __pyx_obj_9kantalope_5model_Kantalope *)__pyx_v_self), __pyx_v_k, __pyx_v_n_jobs);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static int __pyx_pf_9kantalope_5model_9Kantalope___init__(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyObject *__pyx_v_k, CYTHON_UNUSED PyObject *__pyx_v_n_jobs) {
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__init__", 0);
-
-  /* "kantalope/model.pyx":76
- * 
- * 	def __init__( self, k, n_jobs=1 ):
+ * 	def __init__( self, k ):
  * 		self.k = k             # <<<<<<<<<<<<<<
  * 
- * 	cpdef fit( self, numpy.ndarray X, nthreads=1 ):
+ * 	cpdef fit( self, numpy.ndarray X, int nthreads=1 ):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_k); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_k); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_self->k = __pyx_t_1;
 
-  /* "kantalope/model.pyx":75
- * 	cdef numpy.ndarray weights
+  /* "kantalope/model.pyx":28
+ * 	cdef double* weights
  * 
- * 	def __init__( self, k, n_jobs=1 ):             # <<<<<<<<<<<<<<
+ * 	def __init__( self, k ):             # <<<<<<<<<<<<<<
  * 		self.k = k
  * 
  */
@@ -1741,49 +1289,38 @@ static int __pyx_pf_9kantalope_5model_9Kantalope___init__(struct __pyx_obj_9kant
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("kantalope.model.Kantalope.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("kantalope.Kantalope.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "kantalope/model.pyx":78
+/* "kantalope/model.pyx":31
  * 		self.k = k
  * 
- * 	cpdef fit( self, numpy.ndarray X, nthreads=1 ):             # <<<<<<<<<<<<<<
+ * 	cpdef fit( self, numpy.ndarray X, int nthreads=1 ):             # <<<<<<<<<<<<<<
  * 		"""Fit to the data using random initializations."""
  * 
  */
 
-static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_3fit(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_9kantalope_5model_9Kantalope_fit(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_5model_9Kantalope_fit *__pyx_optional_args) {
-  PyObject *__pyx_v_nthreads = ((PyObject *)__pyx_int_1);
-  int __pyx_v_i;
-  int __pyx_v_k;
-  int __pyx_v_y;
-  CYTHON_UNUSED int __pyx_v_j;
-  CYTHON_UNUSED int __pyx_v_n;
+static PyObject *__pyx_pw_9kantalope_9Kantalope_3fit(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_9kantalope_9Kantalope_fit(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_9Kantalope_fit *__pyx_optional_args) {
+  int __pyx_v_nthreads = ((int)1);
+  int __pyx_v_n;
   int __pyx_v_d;
+  int __pyx_v_k;
   double *__pyx_v_X_data;
-  double *__pyx_v_centroids;
-  double *__pyx_v_summaries;
-  double *__pyx_v_weights;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  Py_ssize_t __pyx_t_5;
-  PyObject *__pyx_t_6 = NULL;
-  int __pyx_t_7;
+  PyObject *__pyx_t_5 = NULL;
+  Py_ssize_t __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
   int __pyx_t_8;
-  int __pyx_t_9;
-  int __pyx_t_10;
-  int __pyx_t_11;
-  int __pyx_t_12;
-  int __pyx_t_13;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1797,38 +1334,40 @@ static PyObject *__pyx_f_9kantalope_5model_9Kantalope_fit(struct __pyx_obj_9kant
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_fit); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_fit); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_9kantalope_5model_9Kantalope_3fit)) {
+    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_9kantalope_9Kantalope_3fit)) {
       __Pyx_XDECREF(__pyx_r);
+      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_nthreads); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_1);
-      __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
-      __pyx_t_5 = 0;
-      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
-        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-        if (likely(__pyx_t_4)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-          __Pyx_INCREF(__pyx_t_4);
+      __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
+      __pyx_t_6 = 0;
+      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
+        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+        if (likely(__pyx_t_5)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_5);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_3, function);
-          __pyx_t_5 = 1;
+          __Pyx_DECREF_SET(__pyx_t_4, function);
+          __pyx_t_6 = 1;
         }
       }
-      __pyx_t_6 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_GOTREF(__pyx_t_6);
-      if (__pyx_t_4) {
-        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4); __pyx_t_4 = NULL;
+      __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_7);
+      if (__pyx_t_5) {
+        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
       }
       __Pyx_INCREF(((PyObject *)__pyx_v_X));
       __Pyx_GIVEREF(((PyObject *)__pyx_v_X));
-      PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_5, ((PyObject *)__pyx_v_X));
-      __Pyx_INCREF(__pyx_v_nthreads);
-      __Pyx_GIVEREF(__pyx_v_nthreads);
-      PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_5, __pyx_v_nthreads);
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, ((PyObject *)__pyx_v_X));
+      __Pyx_GIVEREF(__pyx_t_3);
+      PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_3);
+      __pyx_t_3 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_r = __pyx_t_2;
       __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -1837,197 +1376,226 @@ static PyObject *__pyx_f_9kantalope_5model_9Kantalope_fit(struct __pyx_obj_9kant
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "kantalope/model.pyx":82
+  /* "kantalope/model.pyx":34
+ * 		"""Fit to the data using random initializations."""
  * 
- * 		cdef int i, k, y, j
  * 		cdef int n = X.shape[0]             # <<<<<<<<<<<<<<
  * 		cdef int d = X.shape[1]
- * 		cdef double* X_data = <double*> X.data
+ * 		cdef int k = self.k
  */
   __pyx_v_n = (__pyx_v_X->dimensions[0]);
 
-  /* "kantalope/model.pyx":83
- * 		cdef int i, k, y, j
+  /* "kantalope/model.pyx":35
+ * 
  * 		cdef int n = X.shape[0]
  * 		cdef int d = X.shape[1]             # <<<<<<<<<<<<<<
- * 		cdef double* X_data = <double*> X.data
- * 		cdef double* centroids
+ * 		cdef int k = self.k
+ * 
  */
   __pyx_v_d = (__pyx_v_X->dimensions[1]);
 
-  /* "kantalope/model.pyx":84
+  /* "kantalope/model.pyx":36
  * 		cdef int n = X.shape[0]
  * 		cdef int d = X.shape[1]
- * 		cdef double* X_data = <double*> X.data             # <<<<<<<<<<<<<<
- * 		cdef double* centroids
+ * 		cdef int k = self.k             # <<<<<<<<<<<<<<
  * 
+ * 		self.centroids_ndarray = numpy.zeros((k, d), dtype=numpy.float64)
  */
-  __pyx_v_X_data = ((double *)__pyx_v_X->data);
+  __pyx_t_8 = __pyx_v_self->k;
+  __pyx_v_k = __pyx_t_8;
 
-  /* "kantalope/model.pyx":87
- * 		cdef double* centroids
+  /* "kantalope/model.pyx":38
+ * 		cdef int k = self.k
  * 
- * 		self.centroids = X[:self.k].copy()             # <<<<<<<<<<<<<<
- * 		self.weights = numpy.zeros_like( X[:self.k] )
- * 		self.summaries = numpy.zeros_like( X[:self.k] )
+ * 		self.centroids_ndarray = numpy.zeros((k, d), dtype=numpy.float64)             # <<<<<<<<<<<<<<
+ * 		self.centroids = <double*> self.centroids_ndarray.data
+ * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_X), 0, __pyx_v_self->k, NULL, NULL, NULL, 0, 1, 1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_copy); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_4);
+  __pyx_t_1 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_7);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7);
+  __pyx_t_7 = 0;
+  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float64); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_2);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-    }
-  }
-  if (__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  } else {
-    __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GIVEREF(__pyx_t_3);
+  __Pyx_GOTREF(__pyx_v_self->centroids_ndarray);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->centroids_ndarray));
+  __pyx_v_self->centroids_ndarray = ((PyArrayObject *)__pyx_t_3);
+  __pyx_t_3 = 0;
+
+  /* "kantalope/model.pyx":39
+ * 
+ * 		self.centroids_ndarray = numpy.zeros((k, d), dtype=numpy.float64)
+ * 		self.centroids = <double*> self.centroids_ndarray.data             # <<<<<<<<<<<<<<
+ * 
+ * 		self.sums_ndarray = numpy.zeros((k, d), dtype=numpy.float64)
+ */
+  __pyx_v_self->centroids = ((double *)__pyx_v_self->centroids_ndarray->data);
+
+  /* "kantalope/model.pyx":41
+ * 		self.centroids = <double*> self.centroids_ndarray.data
+ * 
+ * 		self.sums_ndarray = numpy.zeros((k, d), dtype=numpy.float64)             # <<<<<<<<<<<<<<
+ * 		self.sums = <double*> self.sums_ndarray.data
+ * 
+ */
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_4);
+  __pyx_t_3 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
+  __pyx_t_2 = 0;
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float64); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GIVEREF(__pyx_t_1);
-  __Pyx_GOTREF(__pyx_v_self->centroids);
-  __Pyx_DECREF(((PyObject *)__pyx_v_self->centroids));
-  __pyx_v_self->centroids = ((PyArrayObject *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "kantalope/model.pyx":88
- * 
- * 		self.centroids = X[:self.k].copy()
- * 		self.weights = numpy.zeros_like( X[:self.k] )             # <<<<<<<<<<<<<<
- * 		self.summaries = numpy.zeros_like( X[:self.k] )
- * 
- */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_X), 0, __pyx_v_self->k, NULL, NULL, NULL, 0, 1, 1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_6 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_6);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  if (!__pyx_t_6) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6); __pyx_t_6 = NULL;
-    __Pyx_GIVEREF(__pyx_t_3);
-    PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_3);
-    __pyx_t_3 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GIVEREF(__pyx_t_1);
-  __Pyx_GOTREF(__pyx_v_self->weights);
-  __Pyx_DECREF(((PyObject *)__pyx_v_self->weights));
-  __pyx_v_self->weights = ((PyArrayObject *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "kantalope/model.pyx":89
- * 		self.centroids = X[:self.k].copy()
- * 		self.weights = numpy.zeros_like( X[:self.k] )
- * 		self.summaries = numpy.zeros_like( X[:self.k] )             # <<<<<<<<<<<<<<
- * 
- * 		centroids = <double*> self.centroids.data
- */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros_like); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetSlice(((PyObject *)__pyx_v_X), 0, __pyx_v_self->k, NULL, NULL, NULL, 0, 1, 1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-      __Pyx_INCREF(__pyx_t_3);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_4, function);
-    }
-  }
-  if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3); __pyx_t_3 = NULL;
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_2);
-    __pyx_t_2 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  }
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GIVEREF(__pyx_t_1);
-  __Pyx_GOTREF(__pyx_v_self->summaries);
-  __Pyx_DECREF(((PyObject *)__pyx_v_self->summaries));
-  __pyx_v_self->summaries = ((PyArrayObject *)__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->sums_ndarray);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->sums_ndarray));
+  __pyx_v_self->sums_ndarray = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "kantalope/model.pyx":91
- * 		self.summaries = numpy.zeros_like( X[:self.k] )
+  /* "kantalope/model.pyx":42
  * 
- * 		centroids = <double*> self.centroids.data             # <<<<<<<<<<<<<<
- * 		summaries = <double*> self.summaries.data
- * 		weights = <double*> self.weights.data
+ * 		self.sums_ndarray = numpy.zeros((k, d), dtype=numpy.float64)
+ * 		self.sums = <double*> self.sums_ndarray.data             # <<<<<<<<<<<<<<
+ * 
+ * 		self.weights_ndarray = numpy.zeros((k, d), dtype=numpy.float64)
  */
-  __pyx_v_centroids = ((double *)__pyx_v_self->centroids->data);
+  __pyx_v_self->sums = ((double *)__pyx_v_self->sums_ndarray->data);
 
-  /* "kantalope/model.pyx":92
+  /* "kantalope/model.pyx":44
+ * 		self.sums = <double*> self.sums_ndarray.data
  * 
- * 		centroids = <double*> self.centroids.data
- * 		summaries = <double*> self.summaries.data             # <<<<<<<<<<<<<<
- * 		weights = <double*> self.weights.data
+ * 		self.weights_ndarray = numpy.zeros((k, d), dtype=numpy.float64)             # <<<<<<<<<<<<<<
+ * 		self.weights = <double*> self.weights_ndarray.data
  * 
  */
-  __pyx_v_summaries = ((double *)__pyx_v_self->summaries->data);
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_k); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_4);
+  __pyx_t_1 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_7);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_7);
+  __pyx_t_7 = 0;
+  __pyx_t_7 = PyDict_New(); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float64); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_7); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GIVEREF(__pyx_t_3);
+  __Pyx_GOTREF(__pyx_v_self->weights_ndarray);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->weights_ndarray));
+  __pyx_v_self->weights_ndarray = ((PyArrayObject *)__pyx_t_3);
+  __pyx_t_3 = 0;
 
-  /* "kantalope/model.pyx":93
- * 		centroids = <double*> self.centroids.data
- * 		summaries = <double*> self.summaries.data
- * 		weights = <double*> self.weights.data             # <<<<<<<<<<<<<<
+  /* "kantalope/model.pyx":45
+ * 
+ * 		self.weights_ndarray = numpy.zeros((k, d), dtype=numpy.float64)
+ * 		self.weights = <double*> self.weights_ndarray.data             # <<<<<<<<<<<<<<
+ * 
+ * 		cdef double* X_data = <double*> X.data
+ */
+  __pyx_v_self->weights = ((double *)__pyx_v_self->weights_ndarray->data);
+
+  /* "kantalope/model.pyx":47
+ * 		self.weights = <double*> self.weights_ndarray.data
+ * 
+ * 		cdef double* X_data = <double*> X.data             # <<<<<<<<<<<<<<
  * 
  * 		with nogil:
  */
-  __pyx_v_weights = ((double *)__pyx_v_self->weights->data);
+  __pyx_v_X_data = ((double *)__pyx_v_X->data);
 
-  /* "kantalope/model.pyx":95
- * 		weights = <double*> self.weights.data
+  /* "kantalope/model.pyx":49
+ * 		cdef double* X_data = <double*> X.data
  * 
  * 		with nogil:             # <<<<<<<<<<<<<<
- * 			for j in range(10):
- * 				for i in prange(n, num_threads=nthreads ):
+ * 			self._fit( X_data, n, d, nthreads )
+ * 
  */
   {
       #ifdef WITH_THREAD
@@ -2036,118 +1604,22 @@ static PyObject *__pyx_f_9kantalope_5model_9Kantalope_fit(struct __pyx_obj_9kant
       #endif
       /*try:*/ {
 
-        /* "kantalope/model.pyx":96
+        /* "kantalope/model.pyx":50
  * 
  * 		with nogil:
- * 			for j in range(10):             # <<<<<<<<<<<<<<
- * 				for i in prange(n, num_threads=nthreads ):
- * 					y = self.__predict_single_point( X_data + i*d, d, centroids )
- */
-        for (__pyx_t_7 = 0; __pyx_t_7 < 10; __pyx_t_7+=1) {
-          __pyx_v_j = __pyx_t_7;
-
-          /* "kantalope/model.pyx":97
- * 		with nogil:
- * 			for j in range(10):
- * 				for i in prange(n, num_threads=nthreads ):             # <<<<<<<<<<<<<<
- * 					y = self.__predict_single_point( X_data + i*d, d, centroids )
+ * 			self._fit( X_data, n, d, nthreads )             # <<<<<<<<<<<<<<
  * 
+ * 	cdef void _fit( Kantalope self, double* X, int n, int d, int nthreads ) nogil:
  */
-          __pyx_t_8 = __pyx_v_n;
-          if (1 == 0) abort();
-          {
-              #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
-                  #undef likely
-                  #undef unlikely
-                  #define likely(x)   (x)
-                  #define unlikely(x) (x)
-              #endif
-              __pyx_t_10 = (__pyx_t_8 - 0) / 1;
-              if (__pyx_t_10 > 0)
-              {
-                  #ifdef _OPENMP
-                  #pragma omp parallel num_threads(__pyx_v_nthreads) private(__pyx_t_12, __pyx_t_11, __pyx_t_13)
-                  #endif /* _OPENMP */
-                  {
-                      #ifdef _OPENMP
-                      #pragma omp for lastprivate(__pyx_v_y) lastprivate(__pyx_v_k) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
-                      #endif /* _OPENMP */
-                      for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_10; __pyx_t_9++){
-                          {
-                              __pyx_v_i = 0 + 1 * __pyx_t_9;
-                              /* Initialize private variables to invalid values */
-                              __pyx_v_y = ((int)0xbad0bad0);
-                              __pyx_v_k = ((int)0xbad0bad0);
-
-                              /* "kantalope/model.pyx":98
- * 			for j in range(10):
- * 				for i in prange(n, num_threads=nthreads ):
- * 					y = self.__predict_single_point( X_data + i*d, d, centroids )             # <<<<<<<<<<<<<<
- * 
- * 					for k in range( d ):
- */
-                              __pyx_v_y = ((struct __pyx_vtabstruct_9kantalope_5model_Kantalope *)__pyx_v_self->__pyx_vtab)->__pyx___predict_single_point(__pyx_v_self, (__pyx_v_X_data + (__pyx_v_i * __pyx_v_d)), __pyx_v_d, __pyx_v_centroids);
-
-                              /* "kantalope/model.pyx":100
- * 					y = self.__predict_single_point( X_data + i*d, d, centroids )
- * 
- * 					for k in range( d ):             # <<<<<<<<<<<<<<
- * 						summaries[y*d + k] += X_data[i*d + k]
- * 						weights[y*d + k] += 1
- */
-                              __pyx_t_11 = __pyx_v_d;
-                              for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
-                                __pyx_v_k = __pyx_t_12;
-
-                                /* "kantalope/model.pyx":101
- * 
- * 					for k in range( d ):
- * 						summaries[y*d + k] += X_data[i*d + k]             # <<<<<<<<<<<<<<
- * 						weights[y*d + k] += 1
- * 						centroids[y*d + k] = summaries[y*d + k] / weights[y*d + k]
- */
-                                __pyx_t_13 = ((__pyx_v_y * __pyx_v_d) + __pyx_v_k);
-                                (__pyx_v_summaries[__pyx_t_13]) = ((__pyx_v_summaries[__pyx_t_13]) + (__pyx_v_X_data[((__pyx_v_i * __pyx_v_d) + __pyx_v_k)]));
-
-                                /* "kantalope/model.pyx":102
- * 					for k in range( d ):
- * 						summaries[y*d + k] += X_data[i*d + k]
- * 						weights[y*d + k] += 1             # <<<<<<<<<<<<<<
- * 						centroids[y*d + k] = summaries[y*d + k] / weights[y*d + k]
- * 
- */
-                                __pyx_t_13 = ((__pyx_v_y * __pyx_v_d) + __pyx_v_k);
-                                (__pyx_v_weights[__pyx_t_13]) = ((__pyx_v_weights[__pyx_t_13]) + 1.0);
-
-                                /* "kantalope/model.pyx":103
- * 						summaries[y*d + k] += X_data[i*d + k]
- * 						weights[y*d + k] += 1
- * 						centroids[y*d + k] = summaries[y*d + k] / weights[y*d + k]             # <<<<<<<<<<<<<<
- * 
- * 	def predict( self, X ):
- */
-                                (__pyx_v_centroids[((__pyx_v_y * __pyx_v_d) + __pyx_v_k)]) = ((__pyx_v_summaries[((__pyx_v_y * __pyx_v_d) + __pyx_v_k)]) / (__pyx_v_weights[((__pyx_v_y * __pyx_v_d) + __pyx_v_k)]));
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-          #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
-              #undef likely
-              #undef unlikely
-              #define likely(x)   __builtin_expect(!!(x), 1)
-              #define unlikely(x) __builtin_expect(!!(x), 0)
-          #endif
-        }
+        ((struct __pyx_vtabstruct_9kantalope_Kantalope *)__pyx_v_self->__pyx_vtab)->_fit(__pyx_v_self, __pyx_v_X_data, __pyx_v_n, __pyx_v_d, __pyx_v_nthreads);
       }
 
-      /* "kantalope/model.pyx":95
- * 		weights = <double*> self.weights.data
+      /* "kantalope/model.pyx":49
+ * 		cdef double* X_data = <double*> X.data
  * 
  * 		with nogil:             # <<<<<<<<<<<<<<
- * 			for j in range(10):
- * 				for i in prange(n, num_threads=nthreads ):
+ * 			self._fit( X_data, n, d, nthreads )
+ * 
  */
       /*finally:*/ {
         /*normal exit:*/{
@@ -2160,10 +1632,10 @@ static PyObject *__pyx_f_9kantalope_5model_9Kantalope_fit(struct __pyx_obj_9kant
       }
   }
 
-  /* "kantalope/model.pyx":78
+  /* "kantalope/model.pyx":31
  * 		self.k = k
  * 
- * 	cpdef fit( self, numpy.ndarray X, nthreads=1 ):             # <<<<<<<<<<<<<<
+ * 	cpdef fit( self, numpy.ndarray X, int nthreads=1 ):             # <<<<<<<<<<<<<<
  * 		"""Fit to the data using random initializations."""
  * 
  */
@@ -2176,8 +1648,9 @@ static PyObject *__pyx_f_9kantalope_5model_9Kantalope_fit(struct __pyx_obj_9kant
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("kantalope.model.Kantalope.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_AddTraceback("kantalope.Kantalope.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2186,11 +1659,11 @@ static PyObject *__pyx_f_9kantalope_5model_9Kantalope_fit(struct __pyx_obj_9kant
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_3fit(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9kantalope_5model_9Kantalope_2fit[] = "Fit to the data using random initializations.";
-static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_3fit(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9kantalope_9Kantalope_3fit(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9kantalope_9Kantalope_2fit[] = "Fit to the data using random initializations.";
+static PyObject *__pyx_pw_9kantalope_9Kantalope_3fit(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_X = 0;
-  PyObject *__pyx_v_nthreads = 0;
+  int __pyx_v_nthreads;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2200,7 +1673,6 @@ static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_3fit(PyObject *__pyx_v_se
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_X,&__pyx_n_s_nthreads,0};
     PyObject* values[2] = {0,0};
-    values[1] = ((PyObject *)__pyx_int_1);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -2222,7 +1694,7 @@ static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_3fit(PyObject *__pyx_v_se
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fit") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fit") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2233,18 +1705,22 @@ static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_3fit(PyObject *__pyx_v_se
       }
     }
     __pyx_v_X = ((PyArrayObject *)values[0]);
-    __pyx_v_nthreads = values[1];
+    if (values[1]) {
+      __pyx_v_nthreads = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_nthreads == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    } else {
+      __pyx_v_nthreads = ((int)1);
+    }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fit", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("fit", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("kantalope.model.Kantalope.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("kantalope.Kantalope.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_5numpy_ndarray, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_9kantalope_5model_9Kantalope_2fit(((struct __pyx_obj_9kantalope_5model_Kantalope *)__pyx_v_self), __pyx_v_X, __pyx_v_nthreads);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_5numpy_ndarray, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_9kantalope_9Kantalope_2fit(((struct __pyx_obj_9kantalope_Kantalope *)__pyx_v_self), __pyx_v_X, __pyx_v_nthreads);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2255,11 +1731,11 @@ static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_3fit(PyObject *__pyx_v_se
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_2fit(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, PyObject *__pyx_v_nthreads) {
+static PyObject *__pyx_pf_9kantalope_9Kantalope_2fit(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_v_nthreads) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_9kantalope_5model_9Kantalope_fit __pyx_t_2;
+  struct __pyx_opt_args_9kantalope_9Kantalope_fit __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2267,7 +1743,7 @@ static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_2fit(struct __pyx_obj_9ka
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.nthreads = __pyx_v_nthreads;
-  __pyx_t_1 = __pyx_vtabptr_9kantalope_5model_Kantalope->fit(__pyx_v_self, __pyx_v_X, 1, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_vtabptr_9kantalope_Kantalope->fit(__pyx_v_self, __pyx_v_X, 1, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2276,7 +1752,7 @@ static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_2fit(struct __pyx_obj_9ka
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("kantalope.model.Kantalope.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("kantalope.Kantalope.fit", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2284,31 +1760,200 @@ static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_2fit(struct __pyx_obj_9ka
   return __pyx_r;
 }
 
-/* "kantalope/model.pyx":105
- * 						centroids[y*d + k] = summaries[y*d + k] / weights[y*d + k]
+/* "kantalope/model.pyx":52
+ * 			self._fit( X_data, n, d, nthreads )
  * 
- * 	def predict( self, X ):             # <<<<<<<<<<<<<<
- * 		"""Predict the centroid associated with each point."""
+ * 	cdef void _fit( Kantalope self, double* X, int n, int d, int nthreads ) nogil:             # <<<<<<<<<<<<<<
+ * 		"""Cython inner loop."""
  * 
  */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_5predict(PyObject *__pyx_v_self, PyObject *__pyx_v_X); /*proto*/
-static char __pyx_doc_9kantalope_5model_9Kantalope_4predict[] = "Predict the centroid associated with each point.";
-static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_5predict(PyObject *__pyx_v_self, PyObject *__pyx_v_X) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("predict (wrapper)", 0);
-  __pyx_r = __pyx_pf_9kantalope_5model_9Kantalope_4predict(((struct __pyx_obj_9kantalope_5model_Kantalope *)__pyx_v_self), ((PyObject *)__pyx_v_X));
+static void __pyx_f_9kantalope_9Kantalope__fit(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, double *__pyx_v_X, CYTHON_UNUSED int __pyx_v_n, int __pyx_v_d, CYTHON_UNUSED int __pyx_v_nthreads) {
+  int __pyx_v_i;
+  int __pyx_v_j;
+  int __pyx_v_k;
+  int __pyx_v_m;
+  int __pyx_t_1;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  int __pyx_t_6;
+
+  /* "kantalope/model.pyx":58
+ * 		cdef double distance, min_distance
+ * 
+ * 		for i in range(self.k):             # <<<<<<<<<<<<<<
+ * 			for j in range(d):
+ * 				m = j + i*d
+ */
+  __pyx_t_1 = __pyx_v_self->k;
+  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
+    __pyx_v_i = __pyx_t_2;
+
+    /* "kantalope/model.pyx":59
+ * 
+ * 		for i in range(self.k):
+ * 			for j in range(d):             # <<<<<<<<<<<<<<
+ * 				m = j + i*d
+ * 				self.centroids[m] = X[m]
+ */
+    __pyx_t_3 = __pyx_v_d;
+    for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+      __pyx_v_j = __pyx_t_4;
+
+      /* "kantalope/model.pyx":60
+ * 		for i in range(self.k):
+ * 			for j in range(d):
+ * 				m = j + i*d             # <<<<<<<<<<<<<<
+ * 				self.centroids[m] = X[m]
+ * 
+ */
+      __pyx_v_m = (__pyx_v_j + (__pyx_v_i * __pyx_v_d));
+
+      /* "kantalope/model.pyx":61
+ * 			for j in range(d):
+ * 				m = j + i*d
+ * 				self.centroids[m] = X[m]             # <<<<<<<<<<<<<<
+ * 
+ * 		for i in prange(n, num_threads=nthreads, schedule='guided'):
+ */
+      (__pyx_v_self->centroids[__pyx_v_m]) = (__pyx_v_X[__pyx_v_m]);
+    }
+  }
+
+  /* "kantalope/model.pyx":63
+ * 				self.centroids[m] = X[m]
+ * 
+ * 		for i in prange(n, num_threads=nthreads, schedule='guided'):             # <<<<<<<<<<<<<<
+ * 			k = self._predict( X + i*d, d )
+ * 
+ */
+  __pyx_t_1 = __pyx_v_n;
+  if (1 == 0) abort();
+  {
+      #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
+          #undef likely
+          #undef unlikely
+          #define likely(x)   (x)
+          #define unlikely(x) (x)
+      #endif
+      __pyx_t_3 = (__pyx_t_1 - 0) / 1;
+      if (__pyx_t_3 > 0)
+      {
+          #ifdef _OPENMP
+          #pragma omp parallel num_threads(__pyx_v_nthreads) private(__pyx_t_5, __pyx_t_6, __pyx_t_4)
+          #endif /* _OPENMP */
+          {
+              #ifdef _OPENMP
+              #pragma omp for lastprivate(__pyx_v_k) lastprivate(__pyx_v_m) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_j) schedule(guided)
+              #endif /* _OPENMP */
+              for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_3; __pyx_t_2++){
+                  {
+                      __pyx_v_i = 0 + 1 * __pyx_t_2;
+                      /* Initialize private variables to invalid values */
+                      __pyx_v_k = ((int)0xbad0bad0);
+                      __pyx_v_m = ((int)0xbad0bad0);
+                      __pyx_v_j = ((int)0xbad0bad0);
+
+                      /* "kantalope/model.pyx":64
+ * 
+ * 		for i in prange(n, num_threads=nthreads, schedule='guided'):
+ * 			k = self._predict( X + i*d, d )             # <<<<<<<<<<<<<<
+ * 
+ * 			for j in range(d):
+ */
+                      __pyx_v_k = ((struct __pyx_vtabstruct_9kantalope_Kantalope *)__pyx_v_self->__pyx_vtab)->_predict(__pyx_v_self, (__pyx_v_X + (__pyx_v_i * __pyx_v_d)), __pyx_v_d);
+
+                      /* "kantalope/model.pyx":66
+ * 			k = self._predict( X + i*d, d )
+ * 
+ * 			for j in range(d):             # <<<<<<<<<<<<<<
+ * 				m = k*d + j
+ * 
+ */
+                      __pyx_t_4 = __pyx_v_d;
+                      for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
+                        __pyx_v_j = __pyx_t_5;
+
+                        /* "kantalope/model.pyx":67
+ * 
+ * 			for j in range(d):
+ * 				m = k*d + j             # <<<<<<<<<<<<<<
+ * 
+ * 				self.sums[m] += X[i*d + j]
+ */
+                        __pyx_v_m = ((__pyx_v_k * __pyx_v_d) + __pyx_v_j);
+
+                        /* "kantalope/model.pyx":69
+ * 				m = k*d + j
+ * 
+ * 				self.sums[m] += X[i*d + j]             # <<<<<<<<<<<<<<
+ * 				self.weights[m] += 1
+ * 
+ */
+                        __pyx_t_6 = __pyx_v_m;
+                        (__pyx_v_self->sums[__pyx_t_6]) = ((__pyx_v_self->sums[__pyx_t_6]) + (__pyx_v_X[((__pyx_v_i * __pyx_v_d) + __pyx_v_j)]));
+
+                        /* "kantalope/model.pyx":70
+ * 
+ * 				self.sums[m] += X[i*d + j]
+ * 				self.weights[m] += 1             # <<<<<<<<<<<<<<
+ * 
+ * 				self.centroids[m] = self.sums[m] / self.weights[m]
+ */
+                        __pyx_t_6 = __pyx_v_m;
+                        (__pyx_v_self->weights[__pyx_t_6]) = ((__pyx_v_self->weights[__pyx_t_6]) + 1.0);
+
+                        /* "kantalope/model.pyx":72
+ * 				self.weights[m] += 1
+ * 
+ * 				self.centroids[m] = self.sums[m] / self.weights[m]             # <<<<<<<<<<<<<<
+ * 
+ * 	cpdef predict( self, numpy.ndarray X, int nthreads=1 ):
+ */
+                        (__pyx_v_self->centroids[__pyx_v_m]) = ((__pyx_v_self->sums[__pyx_v_m]) / (__pyx_v_self->weights[__pyx_v_m]));
+                      }
+                  }
+              }
+          }
+      }
+  }
+  #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
+      #undef likely
+      #undef unlikely
+      #define likely(x)   __builtin_expect(!!(x), 1)
+      #define unlikely(x) __builtin_expect(!!(x), 0)
+  #endif
+
+  /* "kantalope/model.pyx":52
+ * 			self._fit( X_data, n, d, nthreads )
+ * 
+ * 	cdef void _fit( Kantalope self, double* X, int n, int d, int nthreads ) nogil:             # <<<<<<<<<<<<<<
+ * 		"""Cython inner loop."""
+ * 
+ */
 
   /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_4predict(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyObject *__pyx_v_X) {
-  PyObject *__pyx_v_y_pred = NULL;
-  PyObject *__pyx_v_i = NULL;
+/* "kantalope/model.pyx":74
+ * 				self.centroids[m] = self.sums[m] / self.weights[m]
+ * 
+ * 	cpdef predict( self, numpy.ndarray X, int nthreads=1 ):             # <<<<<<<<<<<<<<
+ * 		"""Predict nearest centroid, python wrapper."""
+ * 
+ */
+
+static PyObject *__pyx_pw_9kantalope_9Kantalope_5predict(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_9kantalope_9Kantalope_predict(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_9Kantalope_predict *__pyx_optional_args) {
+  int __pyx_v_nthreads = ((int)1);
+  int __pyx_v_i;
+  int __pyx_v_n;
+  int __pyx_v_d;
+  PyArrayObject *__pyx_v_y_ndarray = 0;
+  int *__pyx_v_y;
+  double *__pyx_v_X_data;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2317,274 +1962,143 @@ static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_4predict(struct __pyx_obj
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   Py_ssize_t __pyx_t_6;
-  PyObject *(*__pyx_t_7)(PyObject *);
+  PyObject *__pyx_t_7 = NULL;
+  int __pyx_t_8;
+  int __pyx_t_9;
+  int __pyx_t_10;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("predict", 0);
-
-  /* "kantalope/model.pyx":108
- * 		"""Predict the centroid associated with each point."""
- * 
- * 		y_pred = numpy.empty( X.shape[0] )             # <<<<<<<<<<<<<<
- * 		for i in xrange( X.shape[0] ):
- * 			y_pred[i] = self._predict_single_point( X[i] )
- */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_X, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_2)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_2);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
+  if (__pyx_optional_args) {
+    if (__pyx_optional_args->__pyx_n > 0) {
+      __pyx_v_nthreads = __pyx_optional_args->nthreads;
     }
   }
-  if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
-    __Pyx_GIVEREF(__pyx_t_4);
-    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_4);
-    __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_v_y_pred = __pyx_t_1;
-  __pyx_t_1 = 0;
-
-  /* "kantalope/model.pyx":109
- * 
- * 		y_pred = numpy.empty( X.shape[0] )
- * 		for i in xrange( X.shape[0] ):             # <<<<<<<<<<<<<<
- * 			y_pred[i] = self._predict_single_point( X[i] )
- * 
- */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_X, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
-  __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_xrange, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
-    __pyx_t_1 = __pyx_t_3; __Pyx_INCREF(__pyx_t_1); __pyx_t_6 = 0;
-    __pyx_t_7 = NULL;
-  } else {
-    __pyx_t_6 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  for (;;) {
-    if (likely(!__pyx_t_7)) {
-      if (likely(PyList_CheckExact(__pyx_t_1))) {
-        if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_3);
-        #endif
-      } else {
-        if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_3);
-        #endif
-      }
-    } else {
-      __pyx_t_3 = __pyx_t_7(__pyx_t_1);
-      if (unlikely(!__pyx_t_3)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_3);
-    }
-    __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
-    __pyx_t_3 = 0;
-
-    /* "kantalope/model.pyx":110
- * 		y_pred = numpy.empty( X.shape[0] )
- * 		for i in xrange( X.shape[0] ):
- * 			y_pred[i] = self._predict_single_point( X[i] )             # <<<<<<<<<<<<<<
- * 
- * 		return y_pred
- */
-    __pyx_t_3 = PyObject_GetItem(__pyx_v_X, __pyx_v_i); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
-    __Pyx_GOTREF(__pyx_t_3);
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_5 = __Pyx_PyInt_From_int(((struct __pyx_vtabstruct_9kantalope_5model_Kantalope *)__pyx_v_self->__pyx_vtab)->_predict_single_point(__pyx_v_self, ((PyArrayObject *)__pyx_t_3), 0)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(PyObject_SetItem(__pyx_v_y_pred, __pyx_v_i, __pyx_t_5) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-    /* "kantalope/model.pyx":109
- * 
- * 		y_pred = numpy.empty( X.shape[0] )
- * 		for i in xrange( X.shape[0] ):             # <<<<<<<<<<<<<<
- * 			y_pred[i] = self._predict_single_point( X[i] )
- * 
- */
-  }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "kantalope/model.pyx":112
- * 			y_pred[i] = self._predict_single_point( X[i] )
- * 
- * 		return y_pred             # <<<<<<<<<<<<<<
- * 
- * 	cpdef int _predict_single_point( self, numpy.ndarray X ):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(__pyx_v_y_pred);
-  __pyx_r = __pyx_v_y_pred;
-  goto __pyx_L0;
-
-  /* "kantalope/model.pyx":105
- * 						centroids[y*d + k] = summaries[y*d + k] / weights[y*d + k]
- * 
- * 	def predict( self, X ):             # <<<<<<<<<<<<<<
- * 		"""Predict the centroid associated with each point."""
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("kantalope.model.Kantalope.predict", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_y_pred);
-  __Pyx_XDECREF(__pyx_v_i);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "kantalope/model.pyx":114
- * 		return y_pred
- * 
- * 	cpdef int _predict_single_point( self, numpy.ndarray X ):             # <<<<<<<<<<<<<<
- * 		"""Python wrapper for parallel processing."""
- * 
- */
-
-static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_7_predict_single_point(PyObject *__pyx_v_self, PyObject *__pyx_v_X); /*proto*/
-static int __pyx_f_9kantalope_5model_9Kantalope__predict_single_point(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_skip_dispatch) {
-  double *__pyx_v_X_data;
-  double *__pyx_v_centroids;
-  int __pyx_v_y_pred;
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_predict_single_point", 0);
   /* Check if called by wrapper */
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_predict_single_point); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_predict); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_9kantalope_5model_9Kantalope_7_predict_single_point)) {
+    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_9kantalope_9Kantalope_5predict)) {
+      __Pyx_XDECREF(__pyx_r);
+      __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_nthreads); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_1);
-      __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
-      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
-        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-        if (likely(__pyx_t_4)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-          __Pyx_INCREF(__pyx_t_4);
+      __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
+      __pyx_t_6 = 0;
+      if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
+        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+        if (likely(__pyx_t_5)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_5);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_3, function);
+          __Pyx_DECREF_SET(__pyx_t_4, function);
+          __pyx_t_6 = 1;
         }
       }
-      if (!__pyx_t_4) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_X)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_2);
-      } else {
-        __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
-        __Pyx_INCREF(((PyObject *)__pyx_v_X));
-        __Pyx_GIVEREF(((PyObject *)__pyx_v_X));
-        PyTuple_SET_ITEM(__pyx_t_5, 0+1, ((PyObject *)__pyx_v_X));
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_7);
+      if (__pyx_t_5) {
+        __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
       }
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_r = __pyx_t_6;
+      __Pyx_INCREF(((PyObject *)__pyx_v_X));
+      __Pyx_GIVEREF(((PyObject *)__pyx_v_X));
+      PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_6, ((PyObject *)__pyx_v_X));
+      __Pyx_GIVEREF(__pyx_t_3);
+      PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_t_3);
+      __pyx_t_3 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_r = __pyx_t_2;
+      __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       goto __pyx_L0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "kantalope/model.pyx":117
- * 		"""Python wrapper for parallel processing."""
+  /* "kantalope/model.pyx":78
  * 
+ * 		cdef int i
+ * 		cdef int n = X.shape[0]             # <<<<<<<<<<<<<<
+ * 		cdef int d = X.shape[1]
+ * 
+ */
+  __pyx_v_n = (__pyx_v_X->dimensions[0]);
+
+  /* "kantalope/model.pyx":79
+ * 		cdef int i
+ * 		cdef int n = X.shape[0]
+ * 		cdef int d = X.shape[1]             # <<<<<<<<<<<<<<
+ * 
+ * 		cdef numpy.ndarray y_ndarray = numpy.zeros(n, dtype=numpy.int32)
+ */
+  __pyx_v_d = (__pyx_v_X->dimensions[1]);
+
+  /* "kantalope/model.pyx":81
+ * 		cdef int d = X.shape[1]
+ * 
+ * 		cdef numpy.ndarray y_ndarray = numpy.zeros(n, dtype=numpy.int32)             # <<<<<<<<<<<<<<
+ * 		cdef int* y = <int*> y_ndarray.data
+ * 		cdef double* X_data = <double*> X.data
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int32); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_y_ndarray = ((PyArrayObject *)__pyx_t_3);
+  __pyx_t_3 = 0;
+
+  /* "kantalope/model.pyx":82
+ * 
+ * 		cdef numpy.ndarray y_ndarray = numpy.zeros(n, dtype=numpy.int32)
+ * 		cdef int* y = <int*> y_ndarray.data             # <<<<<<<<<<<<<<
+ * 		cdef double* X_data = <double*> X.data
+ * 
+ */
+  __pyx_v_y = ((int *)__pyx_v_y_ndarray->data);
+
+  /* "kantalope/model.pyx":83
+ * 		cdef numpy.ndarray y_ndarray = numpy.zeros(n, dtype=numpy.int32)
+ * 		cdef int* y = <int*> y_ndarray.data
  * 		cdef double* X_data = <double*> X.data             # <<<<<<<<<<<<<<
- * 		cdef double* centroids = <double*> self.centroids.data
- * 		cdef int y_pred
+ * 
+ * 		for i in prange(n, nogil=True, num_threads=nthreads):
  */
   __pyx_v_X_data = ((double *)__pyx_v_X->data);
 
-  /* "kantalope/model.pyx":118
- * 
+  /* "kantalope/model.pyx":85
  * 		cdef double* X_data = <double*> X.data
- * 		cdef double* centroids = <double*> self.centroids.data             # <<<<<<<<<<<<<<
- * 		cdef int y_pred
  * 
- */
-  __pyx_v_centroids = ((double *)__pyx_v_self->centroids->data);
-
-  /* "kantalope/model.pyx":121
- * 		cdef int y_pred
- * 
- * 		with nogil:             # <<<<<<<<<<<<<<
- * 			y_pred = self.__predict_single_point( X_data, X.shape[0], centroids )
+ * 		for i in prange(n, nogil=True, num_threads=nthreads):             # <<<<<<<<<<<<<<
+ * 			y[i] = self._predict( X_data + i*d, d )
  * 
  */
   {
@@ -2593,22 +2107,55 @@ static int __pyx_f_9kantalope_5model_9Kantalope__predict_single_point(struct __p
       Py_UNBLOCK_THREADS
       #endif
       /*try:*/ {
+        __pyx_t_8 = __pyx_v_n;
+        if (1 == 0) abort();
+        {
+            #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
+                #undef likely
+                #undef unlikely
+                #define likely(x)   (x)
+                #define unlikely(x) (x)
+            #endif
+            __pyx_t_10 = (__pyx_t_8 - 0) / 1;
+            if (__pyx_t_10 > 0)
+            {
+                #ifdef _OPENMP
+                #pragma omp parallel num_threads(__pyx_v_nthreads)
+                #endif /* _OPENMP */
+                {
+                    #ifdef _OPENMP
+                    #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i)
+                    #endif /* _OPENMP */
+                    for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_10; __pyx_t_9++){
+                        {
+                            __pyx_v_i = 0 + 1 * __pyx_t_9;
 
-        /* "kantalope/model.pyx":122
+                            /* "kantalope/model.pyx":86
  * 
- * 		with nogil:
- * 			y_pred = self.__predict_single_point( X_data, X.shape[0], centroids )             # <<<<<<<<<<<<<<
+ * 		for i in prange(n, nogil=True, num_threads=nthreads):
+ * 			y[i] = self._predict( X_data + i*d, d )             # <<<<<<<<<<<<<<
  * 
- * 		return y_pred
+ * 		return y_ndarray
  */
-        __pyx_v_y_pred = ((struct __pyx_vtabstruct_9kantalope_5model_Kantalope *)__pyx_v_self->__pyx_vtab)->__pyx___predict_single_point(__pyx_v_self, __pyx_v_X_data, (__pyx_v_X->dimensions[0]), __pyx_v_centroids);
+                            (__pyx_v_y[__pyx_v_i]) = ((struct __pyx_vtabstruct_9kantalope_Kantalope *)__pyx_v_self->__pyx_vtab)->_predict(__pyx_v_self, (__pyx_v_X_data + (__pyx_v_i * __pyx_v_d)), __pyx_v_d);
+                        }
+                    }
+                }
+            }
+        }
+        #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
+            #undef likely
+            #undef unlikely
+            #define likely(x)   __builtin_expect(!!(x), 1)
+            #define unlikely(x) __builtin_expect(!!(x), 0)
+        #endif
       }
 
-      /* "kantalope/model.pyx":121
- * 		cdef int y_pred
+      /* "kantalope/model.pyx":85
+ * 		cdef double* X_data = <double*> X.data
  * 
- * 		with nogil:             # <<<<<<<<<<<<<<
- * 			y_pred = self.__predict_single_point( X_data, X.shape[0], centroids )
+ * 		for i in prange(n, nogil=True, num_threads=nthreads):             # <<<<<<<<<<<<<<
+ * 			y[i] = self._predict( X_data + i*d, d )
  * 
  */
       /*finally:*/ {
@@ -2622,21 +2169,23 @@ static int __pyx_f_9kantalope_5model_9Kantalope__predict_single_point(struct __p
       }
   }
 
-  /* "kantalope/model.pyx":124
- * 			y_pred = self.__predict_single_point( X_data, X.shape[0], centroids )
+  /* "kantalope/model.pyx":88
+ * 			y[i] = self._predict( X_data + i*d, d )
  * 
- * 		return y_pred             # <<<<<<<<<<<<<<
+ * 		return y_ndarray             # <<<<<<<<<<<<<<
  * 
- * 	cdef int __predict_single_point( self, double* X, int d, double* centroids ) nogil:
+ * 	cdef int _predict( Kantalope self, double* X, int d ) nogil:
  */
-  __pyx_r = __pyx_v_y_pred;
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((PyObject *)__pyx_v_y_ndarray));
+  __pyx_r = ((PyObject *)__pyx_v_y_ndarray);
   goto __pyx_L0;
 
-  /* "kantalope/model.pyx":114
- * 		return y_pred
+  /* "kantalope/model.pyx":74
+ * 				self.centroids[m] = self.sums[m] / self.weights[m]
  * 
- * 	cpdef int _predict_single_point( self, numpy.ndarray X ):             # <<<<<<<<<<<<<<
- * 		"""Python wrapper for parallel processing."""
+ * 	cpdef predict( self, numpy.ndarray X, int nthreads=1 ):             # <<<<<<<<<<<<<<
+ * 		"""Predict nearest centroid, python wrapper."""
  * 
  */
 
@@ -2647,25 +2196,79 @@ static int __pyx_f_9kantalope_5model_9Kantalope__predict_single_point(struct __p
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("kantalope.model.Kantalope._predict_single_point", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_AddTraceback("kantalope.Kantalope.predict", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_y_ndarray);
+  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_7_predict_single_point(PyObject *__pyx_v_self, PyObject *__pyx_v_X); /*proto*/
-static char __pyx_doc_9kantalope_5model_9Kantalope_6_predict_single_point[] = "Python wrapper for parallel processing.";
-static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_7_predict_single_point(PyObject *__pyx_v_self, PyObject *__pyx_v_X) {
-  CYTHON_UNUSED int __pyx_lineno = 0;
-  CYTHON_UNUSED const char *__pyx_filename = NULL;
-  CYTHON_UNUSED int __pyx_clineno = 0;
+static PyObject *__pyx_pw_9kantalope_9Kantalope_5predict(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_9kantalope_9Kantalope_4predict[] = "Predict nearest centroid, python wrapper.";
+static PyObject *__pyx_pw_9kantalope_9Kantalope_5predict(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyArrayObject *__pyx_v_X = 0;
+  int __pyx_v_nthreads;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("_predict_single_point (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_5numpy_ndarray, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_9kantalope_5model_9Kantalope_6_predict_single_point(((struct __pyx_obj_9kantalope_5model_Kantalope *)__pyx_v_self), ((PyArrayObject *)__pyx_v_X));
+  __Pyx_RefNannySetupContext("predict (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_X,&__pyx_n_s_nthreads,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_X)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_nthreads);
+          if (value) { values[1] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "predict") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_X = ((PyArrayObject *)values[0]);
+    if (values[1]) {
+      __pyx_v_nthreads = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_nthreads == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    } else {
+      __pyx_v_nthreads = ((int)1);
+    }
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("predict", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("kantalope.Kantalope.predict", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_5numpy_ndarray, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_9kantalope_9Kantalope_4predict(((struct __pyx_obj_9kantalope_Kantalope *)__pyx_v_self), __pyx_v_X, __pyx_v_nthreads);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2676,16 +2279,19 @@ static PyObject *__pyx_pw_9kantalope_5model_9Kantalope_7_predict_single_point(Py
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_6_predict_single_point(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X) {
+static PyObject *__pyx_pf_9kantalope_9Kantalope_4predict(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyArrayObject *__pyx_v_X, int __pyx_v_nthreads) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  struct __pyx_opt_args_9kantalope_9Kantalope_predict __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("_predict_single_point", 0);
+  __Pyx_RefNannySetupContext("predict", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_9kantalope_5model_9Kantalope__predict_single_point(__pyx_v_self, __pyx_v_X, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2.__pyx_n = 1;
+  __pyx_t_2.nthreads = __pyx_v_nthreads;
+  __pyx_t_1 = __pyx_vtabptr_9kantalope_Kantalope->predict(__pyx_v_self, __pyx_v_X, 1, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2694,7 +2300,7 @@ static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_6_predict_single_point(st
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("kantalope.model.Kantalope._predict_single_point", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("kantalope.Kantalope.predict", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2702,20 +2308,20 @@ static PyObject *__pyx_pf_9kantalope_5model_9Kantalope_6_predict_single_point(st
   return __pyx_r;
 }
 
-/* "kantalope/model.pyx":126
- * 		return y_pred
+/* "kantalope/model.pyx":90
+ * 		return y_ndarray
  * 
- * 	cdef int __predict_single_point( self, double* X, int d, double* centroids ) nogil:             # <<<<<<<<<<<<<<
- * 		"""Predict the label of a single datapoint."""
+ * 	cdef int _predict( Kantalope self, double* X, int d ) nogil:             # <<<<<<<<<<<<<<
+ * 		"""Predict the nearest centroid."""
  * 
  */
 
-static int __pyx_f_9kantalope_5model_9Kantalope___predict_single_point(struct __pyx_obj_9kantalope_5model_Kantalope *__pyx_v_self, double *__pyx_v_X, int __pyx_v_d, double *__pyx_v_centroids) {
-  int __pyx_v_i;
+static int __pyx_f_9kantalope_9Kantalope__predict(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, double *__pyx_v_X, int __pyx_v_d) {
+  int __pyx_v_j;
   int __pyx_v_k;
+  int __pyx_v_min_centroid;
   double __pyx_v_distance;
   double __pyx_v_min_distance;
-  int __pyx_v_min_centroid;
   int __pyx_r;
   int __pyx_t_1;
   int __pyx_t_2;
@@ -2723,121 +2329,229 @@ static int __pyx_f_9kantalope_5model_9Kantalope___predict_single_point(struct __
   int __pyx_t_4;
   int __pyx_t_5;
 
-  /* "kantalope/model.pyx":131
- * 		cdef int i, k
- * 		cdef double distance
- * 		cdef double min_distance = 1e8             # <<<<<<<<<<<<<<
- * 		cdef int min_centroid = -1
+  /* "kantalope/model.pyx":96
+ * 		cdef double distance, min_distance
+ * 
+ * 		min_distance = inf             # <<<<<<<<<<<<<<
+ * 		min_centroid = -1
  * 
  */
-  __pyx_v_min_distance = 1e8;
+  __pyx_v_min_distance = __pyx_v_9kantalope_inf;
 
-  /* "kantalope/model.pyx":132
- * 		cdef double distance
- * 		cdef double min_distance = 1e8
- * 		cdef int min_centroid = -1             # <<<<<<<<<<<<<<
+  /* "kantalope/model.pyx":97
  * 
- * 		for i in range(self.k):
+ * 		min_distance = inf
+ * 		min_centroid = -1             # <<<<<<<<<<<<<<
+ * 
+ * 		for k in range(self.k):
  */
   __pyx_v_min_centroid = -1;
 
-  /* "kantalope/model.pyx":134
- * 		cdef int min_centroid = -1
+  /* "kantalope/model.pyx":99
+ * 		min_centroid = -1
  * 
- * 		for i in range(self.k):             # <<<<<<<<<<<<<<
- * 			distance = 0
+ * 		for k in range(self.k):             # <<<<<<<<<<<<<<
+ * 			distance = 0.0
  * 
  */
   __pyx_t_1 = __pyx_v_self->k;
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
-    __pyx_v_i = __pyx_t_2;
+    __pyx_v_k = __pyx_t_2;
 
-    /* "kantalope/model.pyx":135
+    /* "kantalope/model.pyx":100
  * 
- * 		for i in range(self.k):
- * 			distance = 0             # <<<<<<<<<<<<<<
+ * 		for k in range(self.k):
+ * 			distance = 0.0             # <<<<<<<<<<<<<<
  * 
- * 			for k in range(d):
+ * 			for j in range(d):
  */
     __pyx_v_distance = 0.0;
 
-    /* "kantalope/model.pyx":137
- * 			distance = 0
+    /* "kantalope/model.pyx":102
+ * 			distance = 0.0
  * 
- * 			for k in range(d):             # <<<<<<<<<<<<<<
- * 				distance += ( X[k] - centroids[i*d + k] ) ** 2.0
+ * 			for j in range(d):             # <<<<<<<<<<<<<<
+ * 				distance += ( X[j] - self.centroids[k*d + j] ) ** 2.0
  * 
  */
     __pyx_t_3 = __pyx_v_d;
     for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
-      __pyx_v_k = __pyx_t_4;
+      __pyx_v_j = __pyx_t_4;
 
-      /* "kantalope/model.pyx":138
+      /* "kantalope/model.pyx":103
  * 
- * 			for k in range(d):
- * 				distance += ( X[k] - centroids[i*d + k] ) ** 2.0             # <<<<<<<<<<<<<<
+ * 			for j in range(d):
+ * 				distance += ( X[j] - self.centroids[k*d + j] ) ** 2.0             # <<<<<<<<<<<<<<
  * 
  * 			if distance < min_distance:
  */
-      __pyx_v_distance = (__pyx_v_distance + pow(((__pyx_v_X[__pyx_v_k]) - (__pyx_v_centroids[((__pyx_v_i * __pyx_v_d) + __pyx_v_k)])), 2.0));
+      __pyx_v_distance = (__pyx_v_distance + pow(((__pyx_v_X[__pyx_v_j]) - (__pyx_v_self->centroids[((__pyx_v_k * __pyx_v_d) + __pyx_v_j)])), 2.0));
     }
 
-    /* "kantalope/model.pyx":140
- * 				distance += ( X[k] - centroids[i*d + k] ) ** 2.0
+    /* "kantalope/model.pyx":105
+ * 				distance += ( X[j] - self.centroids[k*d + j] ) ** 2.0
  * 
  * 			if distance < min_distance:             # <<<<<<<<<<<<<<
  * 				min_distance = distance
- * 				min_centroid = i
+ * 				min_centroid = k
  */
     __pyx_t_5 = ((__pyx_v_distance < __pyx_v_min_distance) != 0);
     if (__pyx_t_5) {
 
-      /* "kantalope/model.pyx":141
+      /* "kantalope/model.pyx":106
  * 
  * 			if distance < min_distance:
  * 				min_distance = distance             # <<<<<<<<<<<<<<
- * 				min_centroid = i
+ * 				min_centroid = k
  * 
  */
       __pyx_v_min_distance = __pyx_v_distance;
 
-      /* "kantalope/model.pyx":142
+      /* "kantalope/model.pyx":107
  * 			if distance < min_distance:
  * 				min_distance = distance
- * 				min_centroid = i             # <<<<<<<<<<<<<<
+ * 				min_centroid = k             # <<<<<<<<<<<<<<
  * 
  * 		return min_centroid
  */
-      __pyx_v_min_centroid = __pyx_v_i;
+      __pyx_v_min_centroid = __pyx_v_k;
 
-      /* "kantalope/model.pyx":140
- * 				distance += ( X[k] - centroids[i*d + k] ) ** 2.0
+      /* "kantalope/model.pyx":105
+ * 				distance += ( X[j] - self.centroids[k*d + j] ) ** 2.0
  * 
  * 			if distance < min_distance:             # <<<<<<<<<<<<<<
  * 				min_distance = distance
- * 				min_centroid = i
+ * 				min_centroid = k
  */
     }
   }
 
-  /* "kantalope/model.pyx":144
- * 				min_centroid = i
+  /* "kantalope/model.pyx":109
+ * 				min_centroid = k
  * 
  * 		return min_centroid             # <<<<<<<<<<<<<<
  */
   __pyx_r = __pyx_v_min_centroid;
   goto __pyx_L0;
 
-  /* "kantalope/model.pyx":126
- * 		return y_pred
+  /* "kantalope/model.pyx":90
+ * 		return y_ndarray
  * 
- * 	cdef int __predict_single_point( self, double* X, int d, double* centroids ) nogil:             # <<<<<<<<<<<<<<
- * 		"""Predict the label of a single datapoint."""
+ * 	cdef int _predict( Kantalope self, double* X, int d ) nogil:             # <<<<<<<<<<<<<<
+ * 		"""Predict the nearest centroid."""
  * 
  */
 
   /* function exit code */
   __pyx_L0:;
+  return __pyx_r;
+}
+
+/* "kantalope/model.pyx":21
+ * 
+ * 	cdef int k
+ * 	cdef public numpy.ndarray centroids_ndarray             # <<<<<<<<<<<<<<
+ * 	cdef numpy.ndarray sums_ndarray
+ * 	cdef numpy.ndarray weights_ndarray
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_9kantalope_9Kantalope_17centroids_ndarray___get__(((struct __pyx_obj_9kantalope_Kantalope *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9kantalope_9Kantalope_17centroids_ndarray___get__(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((PyObject *)__pyx_v_self->centroids_ndarray));
+  __pyx_r = ((PyObject *)__pyx_v_self->centroids_ndarray);
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_9kantalope_9Kantalope_17centroids_ndarray_2__set__(((struct __pyx_obj_9kantalope_Kantalope *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_9kantalope_9Kantalope_17centroids_ndarray_2__set__(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->centroids_ndarray);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->centroids_ndarray));
+  __pyx_v_self->centroids_ndarray = ((PyArrayObject *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("kantalope.Kantalope.centroids_ndarray.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_9kantalope_9Kantalope_17centroids_ndarray_4__del__(((struct __pyx_obj_9kantalope_Kantalope *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_9kantalope_9Kantalope_17centroids_ndarray_4__del__(struct __pyx_obj_9kantalope_Kantalope *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->centroids_ndarray);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->centroids_ndarray));
+  __pyx_v_self->centroids_ndarray = ((PyArrayObject *)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
@@ -4983,10 +4697,10 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_9kantalope_5model_Centroid __pyx_vtable_9kantalope_5model_Centroid;
+static struct __pyx_vtabstruct_9kantalope_Kantalope __pyx_vtable_9kantalope_Kantalope;
 
-static PyObject *__pyx_tp_new_9kantalope_5model_Centroid(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_9kantalope_5model_Centroid *p;
+static PyObject *__pyx_tp_new_9kantalope_Kantalope(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_9kantalope_Kantalope *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -4994,187 +4708,88 @@ static PyObject *__pyx_tp_new_9kantalope_5model_Centroid(PyTypeObject *t, CYTHON
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_9kantalope_5model_Centroid *)o);
-  p->__pyx_vtab = __pyx_vtabptr_9kantalope_5model_Centroid;
-  p->summary_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
-  p->position_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
+  p = ((struct __pyx_obj_9kantalope_Kantalope *)o);
+  p->__pyx_vtab = __pyx_vtabptr_9kantalope_Kantalope;
+  p->centroids_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
+  p->sums_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
+  p->weights_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
   return o;
 }
 
-static void __pyx_tp_dealloc_9kantalope_5model_Centroid(PyObject *o) {
-  struct __pyx_obj_9kantalope_5model_Centroid *p = (struct __pyx_obj_9kantalope_5model_Centroid *)o;
+static void __pyx_tp_dealloc_9kantalope_Kantalope(PyObject *o) {
+  struct __pyx_obj_9kantalope_Kantalope *p = (struct __pyx_obj_9kantalope_Kantalope *)o;
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
   }
   #endif
   PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->summary_ndarray);
-  Py_CLEAR(p->position_ndarray);
+  Py_CLEAR(p->centroids_ndarray);
+  Py_CLEAR(p->sums_ndarray);
+  Py_CLEAR(p->weights_ndarray);
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static int __pyx_tp_traverse_9kantalope_5model_Centroid(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_9kantalope_Kantalope(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_9kantalope_5model_Centroid *p = (struct __pyx_obj_9kantalope_5model_Centroid *)o;
-  if (p->summary_ndarray) {
-    e = (*v)(((PyObject*)p->summary_ndarray), a); if (e) return e;
+  struct __pyx_obj_9kantalope_Kantalope *p = (struct __pyx_obj_9kantalope_Kantalope *)o;
+  if (p->centroids_ndarray) {
+    e = (*v)(((PyObject*)p->centroids_ndarray), a); if (e) return e;
   }
-  if (p->position_ndarray) {
-    e = (*v)(((PyObject*)p->position_ndarray), a); if (e) return e;
+  if (p->sums_ndarray) {
+    e = (*v)(((PyObject*)p->sums_ndarray), a); if (e) return e;
+  }
+  if (p->weights_ndarray) {
+    e = (*v)(((PyObject*)p->weights_ndarray), a); if (e) return e;
   }
   return 0;
 }
 
-static int __pyx_tp_clear_9kantalope_5model_Centroid(PyObject *o) {
+static int __pyx_tp_clear_9kantalope_Kantalope(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_9kantalope_5model_Centroid *p = (struct __pyx_obj_9kantalope_5model_Centroid *)o;
-  tmp = ((PyObject*)p->summary_ndarray);
-  p->summary_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
+  struct __pyx_obj_9kantalope_Kantalope *p = (struct __pyx_obj_9kantalope_Kantalope *)o;
+  tmp = ((PyObject*)p->centroids_ndarray);
+  p->centroids_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
-  tmp = ((PyObject*)p->position_ndarray);
-  p->position_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
+  tmp = ((PyObject*)p->sums_ndarray);
+  p->sums_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->weights_ndarray);
+  p->weights_ndarray = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
 
-static PyMethodDef __pyx_methods_9kantalope_5model_Centroid[] = {
+static PyObject *__pyx_getprop_9kantalope_9Kantalope_centroids_ndarray(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_1__get__(o);
+}
+
+static int __pyx_setprop_9kantalope_9Kantalope_centroids_ndarray(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_9kantalope_9Kantalope_17centroids_ndarray_5__del__(o);
+  }
+}
+
+static PyMethodDef __pyx_methods_9kantalope_Kantalope[] = {
+  {"fit", (PyCFunction)__pyx_pw_9kantalope_9Kantalope_3fit, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9kantalope_9Kantalope_2fit},
+  {"predict", (PyCFunction)__pyx_pw_9kantalope_9Kantalope_5predict, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9kantalope_9Kantalope_4predict},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_9kantalope_5model_Centroid = {
-  PyVarObject_HEAD_INIT(0, 0)
-  "kantalope.model.Centroid", /*tp_name*/
-  sizeof(struct __pyx_obj_9kantalope_5model_Centroid), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_9kantalope_5model_Centroid, /*tp_dealloc*/
-  0, /*tp_print*/
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
-  #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
-  #endif
-  #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
-  #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  0, /*tp_as_sequence*/
-  0, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
-  "\n\tA centroid which stores summary statistics and values.\n\t", /*tp_doc*/
-  __pyx_tp_traverse_9kantalope_5model_Centroid, /*tp_traverse*/
-  __pyx_tp_clear_9kantalope_5model_Centroid, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  __pyx_methods_9kantalope_5model_Centroid, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
-  0, /*tp_dictoffset*/
-  __pyx_pw_9kantalope_5model_8Centroid_1__init__, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_9kantalope_5model_Centroid, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
-  #if PY_VERSION_HEX >= 0x030400a1
-  0, /*tp_finalize*/
-  #endif
-};
-static struct __pyx_vtabstruct_9kantalope_5model_Kantalope __pyx_vtable_9kantalope_5model_Kantalope;
-
-static PyObject *__pyx_tp_new_9kantalope_5model_Kantalope(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_9kantalope_5model_Kantalope *p;
-  PyObject *o;
-  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
-    o = (*t->tp_alloc)(t, 0);
-  } else {
-    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
-  }
-  if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_9kantalope_5model_Kantalope *)o);
-  p->__pyx_vtab = __pyx_vtabptr_9kantalope_5model_Kantalope;
-  p->centroids = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
-  p->summaries = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
-  p->weights = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
-  return o;
-}
-
-static void __pyx_tp_dealloc_9kantalope_5model_Kantalope(PyObject *o) {
-  struct __pyx_obj_9kantalope_5model_Kantalope *p = (struct __pyx_obj_9kantalope_5model_Kantalope *)o;
-  #if PY_VERSION_HEX >= 0x030400a1
-  if (unlikely(Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
-    if (PyObject_CallFinalizerFromDealloc(o)) return;
-  }
-  #endif
-  PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->centroids);
-  Py_CLEAR(p->summaries);
-  Py_CLEAR(p->weights);
-  (*Py_TYPE(o)->tp_free)(o);
-}
-
-static int __pyx_tp_traverse_9kantalope_5model_Kantalope(PyObject *o, visitproc v, void *a) {
-  int e;
-  struct __pyx_obj_9kantalope_5model_Kantalope *p = (struct __pyx_obj_9kantalope_5model_Kantalope *)o;
-  if (p->centroids) {
-    e = (*v)(((PyObject*)p->centroids), a); if (e) return e;
-  }
-  if (p->summaries) {
-    e = (*v)(((PyObject*)p->summaries), a); if (e) return e;
-  }
-  if (p->weights) {
-    e = (*v)(((PyObject*)p->weights), a); if (e) return e;
-  }
-  return 0;
-}
-
-static int __pyx_tp_clear_9kantalope_5model_Kantalope(PyObject *o) {
-  PyObject* tmp;
-  struct __pyx_obj_9kantalope_5model_Kantalope *p = (struct __pyx_obj_9kantalope_5model_Kantalope *)o;
-  tmp = ((PyObject*)p->centroids);
-  p->centroids = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  tmp = ((PyObject*)p->summaries);
-  p->summaries = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  tmp = ((PyObject*)p->weights);
-  p->weights = ((PyArrayObject *)Py_None); Py_INCREF(Py_None);
-  Py_XDECREF(tmp);
-  return 0;
-}
-
-static PyMethodDef __pyx_methods_9kantalope_5model_Kantalope[] = {
-  {"fit", (PyCFunction)__pyx_pw_9kantalope_5model_9Kantalope_3fit, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9kantalope_5model_9Kantalope_2fit},
-  {"predict", (PyCFunction)__pyx_pw_9kantalope_5model_9Kantalope_5predict, METH_O, __pyx_doc_9kantalope_5model_9Kantalope_4predict},
-  {"_predict_single_point", (PyCFunction)__pyx_pw_9kantalope_5model_9Kantalope_7_predict_single_point, METH_O, __pyx_doc_9kantalope_5model_9Kantalope_6_predict_single_point},
-  {0, 0, 0, 0}
+static struct PyGetSetDef __pyx_getsets_9kantalope_Kantalope[] = {
+  {(char *)"centroids_ndarray", __pyx_getprop_9kantalope_9Kantalope_centroids_ndarray, __pyx_setprop_9kantalope_9Kantalope_centroids_ndarray, 0, 0},
+  {0, 0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_9kantalope_5model_Kantalope = {
+static PyTypeObject __pyx_type_9kantalope_Kantalope = {
   PyVarObject_HEAD_INIT(0, 0)
-  "kantalope.model.Kantalope", /*tp_name*/
-  sizeof(struct __pyx_obj_9kantalope_5model_Kantalope), /*tp_basicsize*/
+  "kantalope.Kantalope", /*tp_name*/
+  sizeof(struct __pyx_obj_9kantalope_Kantalope), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_9kantalope_5model_Kantalope, /*tp_dealloc*/
+  __pyx_tp_dealloc_9kantalope_Kantalope, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -5196,23 +4811,23 @@ static PyTypeObject __pyx_type_9kantalope_5model_Kantalope = {
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   "Kantalope kmeans estimator.", /*tp_doc*/
-  __pyx_tp_traverse_9kantalope_5model_Kantalope, /*tp_traverse*/
-  __pyx_tp_clear_9kantalope_5model_Kantalope, /*tp_clear*/
+  __pyx_tp_traverse_9kantalope_Kantalope, /*tp_traverse*/
+  __pyx_tp_clear_9kantalope_Kantalope, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_9kantalope_5model_Kantalope, /*tp_methods*/
+  __pyx_methods_9kantalope_Kantalope, /*tp_methods*/
   0, /*tp_members*/
-  0, /*tp_getset*/
+  __pyx_getsets_9kantalope_Kantalope, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_9kantalope_5model_9Kantalope_1__init__, /*tp_init*/
+  __pyx_pw_9kantalope_9Kantalope_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_9kantalope_5model_Kantalope, /*tp_new*/
+  __pyx_tp_new_9kantalope_Kantalope, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -5238,7 +4853,7 @@ static struct PyModuleDef __pyx_moduledef = {
   #else
     PyModuleDef_HEAD_INIT,
   #endif
-    "model",
+    "kantalope",
     __pyx_k_Lock_Free_Parallel_K_means_usin, /* m_doc */
     -1, /* m_size */
     __pyx_methods /* m_methods */,
@@ -5256,38 +4871,28 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_X, __pyx_k_X, sizeof(__pyx_k_X), 0, 0, 1, 1},
-  {&__pyx_n_s_copy, __pyx_k_copy, sizeof(__pyx_k_copy), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
-  {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
   {&__pyx_n_s_fit, __pyx_k_fit, sizeof(__pyx_k_fit), 0, 0, 1, 1},
   {&__pyx_n_s_float64, __pyx_k_float64, sizeof(__pyx_k_float64), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_inf, __pyx_k_inf, sizeof(__pyx_k_inf), 0, 0, 1, 1},
+  {&__pyx_n_s_int32, __pyx_k_int32, sizeof(__pyx_k_int32), 0, 0, 1, 1},
   {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_n_s_n_jobs, __pyx_k_n_jobs, sizeof(__pyx_k_n_jobs), 0, 0, 1, 1},
   {&__pyx_kp_u_ndarray_is_not_C_contiguous, __pyx_k_ndarray_is_not_C_contiguous, sizeof(__pyx_k_ndarray_is_not_C_contiguous), 0, 1, 0, 0},
   {&__pyx_kp_u_ndarray_is_not_Fortran_contiguou, __pyx_k_ndarray_is_not_Fortran_contiguou, sizeof(__pyx_k_ndarray_is_not_Fortran_contiguou), 0, 1, 0, 0},
   {&__pyx_n_s_nthreads, __pyx_k_nthreads, sizeof(__pyx_k_nthreads), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
-  {&__pyx_n_s_position, __pyx_k_position, sizeof(__pyx_k_position), 0, 0, 1, 1},
-  {&__pyx_n_s_predict_single_point, __pyx_k_predict_single_point, sizeof(__pyx_k_predict_single_point), 0, 0, 1, 1},
+  {&__pyx_n_s_predict, __pyx_k_predict, sizeof(__pyx_k_predict), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
-  {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
-  {&__pyx_n_s_xrange, __pyx_k_xrange, sizeof(__pyx_k_xrange), 0, 0, 1, 1},
   {&__pyx_n_s_zeros, __pyx_k_zeros, sizeof(__pyx_k_zeros), 0, 0, 1, 1},
-  {&__pyx_n_s_zeros_like, __pyx_k_zeros_like, sizeof(__pyx_k_zeros_like), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  #if PY_MAJOR_VERSION >= 3
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  #else
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  #endif
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 218; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
@@ -5380,21 +4985,21 @@ PyEval_InitThreads();
 if (unlikely(PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
-  __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
   __pyx_L1_error:;
   return -1;
 }
 
 #if PY_MAJOR_VERSION < 3
-PyMODINIT_FUNC initmodel(void); /*proto*/
-PyMODINIT_FUNC initmodel(void)
+PyMODINIT_FUNC initkantalope(void); /*proto*/
+PyMODINIT_FUNC initkantalope(void)
 #else
-PyMODINIT_FUNC PyInit_model(void); /*proto*/
-PyMODINIT_FUNC PyInit_model(void)
+PyMODINIT_FUNC PyInit_kantalope(void); /*proto*/
+PyMODINIT_FUNC PyInit_kantalope(void)
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
+  double __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5408,7 +5013,7 @@ PyMODINIT_FUNC PyInit_model(void)
           Py_FatalError("failed to import 'refnanny' module");
   }
   #endif
-  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_model(void)", 0);
+  __Pyx_RefNannySetupContext("PyMODINIT_FUNC PyInit_kantalope(void)", 0);
   if (__Pyx_check_binary_version() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_tuple = PyTuple_New(0); if (unlikely(!__pyx_empty_tuple)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_empty_bytes = PyBytes_FromStringAndSize("", 0); if (unlikely(!__pyx_empty_bytes)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5436,7 +5041,7 @@ PyMODINIT_FUNC PyInit_model(void)
   #endif
   /*--- Module creation code ---*/
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("model", __pyx_methods, __pyx_k_Lock_Free_Parallel_K_means_usin, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("kantalope", __pyx_methods, __pyx_k_Lock_Free_Parallel_K_means_usin, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -5453,14 +5058,14 @@ PyMODINIT_FUNC PyInit_model(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_kantalope__model) {
+  if (__pyx_module_is_main_kantalope) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "kantalope.model")) {
-      if (unlikely(PyDict_SetItemString(modules, "kantalope.model", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "kantalope")) {
+      if (unlikely(PyDict_SetItemString(modules, "kantalope", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -5472,24 +5077,16 @@ PyMODINIT_FUNC PyInit_model(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  __pyx_vtabptr_9kantalope_5model_Centroid = &__pyx_vtable_9kantalope_5model_Centroid;
-  __pyx_vtable_9kantalope_5model_Centroid.distance = (double (*)(struct __pyx_obj_9kantalope_5model_Centroid *, double *))__pyx_f_9kantalope_5model_8Centroid_distance;
-  __pyx_vtable_9kantalope_5model_Centroid.summarize = (void (*)(struct __pyx_obj_9kantalope_5model_Centroid *, double *, double))__pyx_f_9kantalope_5model_8Centroid_summarize;
-  __pyx_vtable_9kantalope_5model_Centroid.from_summaries = (void (*)(struct __pyx_obj_9kantalope_5model_Centroid *))__pyx_f_9kantalope_5model_8Centroid_from_summaries;
-  if (PyType_Ready(&__pyx_type_9kantalope_5model_Centroid) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_9kantalope_5model_Centroid.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_9kantalope_5model_Centroid.tp_dict, __pyx_vtabptr_9kantalope_5model_Centroid) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "Centroid", (PyObject *)&__pyx_type_9kantalope_5model_Centroid) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_9kantalope_5model_Centroid = &__pyx_type_9kantalope_5model_Centroid;
-  __pyx_vtabptr_9kantalope_5model_Kantalope = &__pyx_vtable_9kantalope_5model_Kantalope;
-  __pyx_vtable_9kantalope_5model_Kantalope.fit = (PyObject *(*)(struct __pyx_obj_9kantalope_5model_Kantalope *, PyArrayObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_5model_9Kantalope_fit *__pyx_optional_args))__pyx_f_9kantalope_5model_9Kantalope_fit;
-  __pyx_vtable_9kantalope_5model_Kantalope._predict_single_point = (int (*)(struct __pyx_obj_9kantalope_5model_Kantalope *, PyArrayObject *, int __pyx_skip_dispatch))__pyx_f_9kantalope_5model_9Kantalope__predict_single_point;
-  __pyx_vtable_9kantalope_5model_Kantalope.__pyx___predict_single_point = (int (*)(struct __pyx_obj_9kantalope_5model_Kantalope *, double *, int, double *))__pyx_f_9kantalope_5model_9Kantalope___predict_single_point;
-  if (PyType_Ready(&__pyx_type_9kantalope_5model_Kantalope) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_9kantalope_5model_Kantalope.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_9kantalope_5model_Kantalope.tp_dict, __pyx_vtabptr_9kantalope_5model_Kantalope) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "Kantalope", (PyObject *)&__pyx_type_9kantalope_5model_Kantalope) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_9kantalope_5model_Kantalope = &__pyx_type_9kantalope_5model_Kantalope;
+  __pyx_vtabptr_9kantalope_Kantalope = &__pyx_vtable_9kantalope_Kantalope;
+  __pyx_vtable_9kantalope_Kantalope.fit = (PyObject *(*)(struct __pyx_obj_9kantalope_Kantalope *, PyArrayObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_9Kantalope_fit *__pyx_optional_args))__pyx_f_9kantalope_9Kantalope_fit;
+  __pyx_vtable_9kantalope_Kantalope._fit = (void (*)(struct __pyx_obj_9kantalope_Kantalope *, double *, int, int, int))__pyx_f_9kantalope_9Kantalope__fit;
+  __pyx_vtable_9kantalope_Kantalope.predict = (PyObject *(*)(struct __pyx_obj_9kantalope_Kantalope *, PyArrayObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_9kantalope_9Kantalope_predict *__pyx_optional_args))__pyx_f_9kantalope_9Kantalope_predict;
+  __pyx_vtable_9kantalope_Kantalope._predict = (int (*)(struct __pyx_obj_9kantalope_Kantalope *, double *, int))__pyx_f_9kantalope_9Kantalope__predict;
+  if (PyType_Ready(&__pyx_type_9kantalope_Kantalope) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_9kantalope_Kantalope.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_9kantalope_Kantalope.tp_dict, __pyx_vtabptr_9kantalope_Kantalope) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "Kantalope", (PyObject *)&__pyx_type_9kantalope_Kantalope) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 17; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_9kantalope_Kantalope = &__pyx_type_9kantalope_Kantalope;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
   #if CYTHON_COMPILING_IN_PYPY
@@ -5511,7 +5108,7 @@ PyMODINIT_FUNC PyInit_model(void)
   #endif
 
   /* "kantalope/model.pyx":12
- * from libc.math cimport sqrt as csqrt
+ * from cython.parallel import prange
  * 
  * import numpy             # <<<<<<<<<<<<<<
  * cimport numpy
@@ -5522,10 +5119,20 @@ PyMODINIT_FUNC PyInit_model(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_numpy, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+  /* "kantalope/model.pyx":15
+ * cimport numpy
+ * 
+ * cdef double inf = float("inf")             # <<<<<<<<<<<<<<
+ * 
+ * cdef class Kantalope( object ):
+ */
+  __pyx_t_2 = __Pyx_PyObject_AsDouble(__pyx_n_s_inf); if (unlikely(__pyx_t_2 == ((double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_9kantalope_inf = __pyx_t_2;
+
   /* "kantalope/model.pyx":1
- * #cython: cdivision=True             # <<<<<<<<<<<<<<
+ * #cython: boundscheck=False             # <<<<<<<<<<<<<<
+ * #cython: cdivision=True
  * # model.pyx
- * # Author: Jacob Schreiber <jmschr@cs.washington.edu>
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -5547,11 +5154,11 @@ PyMODINIT_FUNC PyInit_model(void)
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init kantalope.model", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init kantalope", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init kantalope.model");
+    PyErr_SetString(PyExc_ImportError, "init kantalope");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -5731,116 +5338,6 @@ static void __Pyx_RaiseArgtupleInvalid(
                  (num_expected == 1) ? "" : "s", num_found);
 }
 
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
-    PyObject *r;
-    if (!j) return NULL;
-    r = PyObject_GetItem(o, j);
-    Py_DECREF(j);
-    return r;
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (wraparound & unlikely(i < 0)) i += PyList_GET_SIZE(o);
-    if ((!boundscheck) || likely((0 <= i) & (i < PyList_GET_SIZE(o)))) {
-        PyObject *r = PyList_GET_ITEM(o, i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (wraparound & unlikely(i < 0)) i += PyTuple_GET_SIZE(o);
-    if ((!boundscheck) || likely((0 <= i) & (i < PyTuple_GET_SIZE(o)))) {
-        PyObject *r = PyTuple_GET_ITEM(o, i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
-                                                     CYTHON_NCP_UNUSED int wraparound,
-                                                     CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    if (is_list || PyList_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
-        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
-            PyObject *r = PyList_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    }
-    else if (PyTuple_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
-        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
-            PyObject *r = PyTuple_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    } else {
-        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
-        if (likely(m && m->sq_item)) {
-            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
-                Py_ssize_t l = m->sq_length(o);
-                if (likely(l >= 0)) {
-                    i += l;
-                } else {
-                    if (PyErr_ExceptionMatches(PyExc_OverflowError))
-                        PyErr_Clear();
-                    else
-                        return NULL;
-                }
-            }
-            return m->sq_item(o, i);
-        }
-    }
-#else
-    if (is_list || PySequence_Check(o)) {
-        return PySequence_GetItem(o, i);
-    }
-#endif
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
-
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
-    }
-    if (likely(PyObject_TypeCheck(obj, type)))
-        return 1;
-    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
-                 Py_TYPE(obj)->tp_name, type->tp_name);
-    return 0;
-}
-
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
-    PyObject *result;
-#if CYTHON_COMPILING_IN_CPYTHON
-    result = PyDict_GetItem(__pyx_d, name);
-    if (likely(result)) {
-        Py_INCREF(result);
-    } else {
-#else
-    result = PyObject_GetItem(__pyx_d, name);
-    if (!result) {
-        PyErr_Clear();
-#endif
-        result = __Pyx_GetBuiltinName(name);
-    }
-    return result;
-}
-
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
     PyObject *result;
@@ -5860,170 +5357,34 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 }
 #endif
 
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetSlice(PyObject* obj,
-        Py_ssize_t cstart, Py_ssize_t cstop,
-        PyObject** _py_start, PyObject** _py_stop, PyObject** _py_slice,
-        int has_cstart, int has_cstop, CYTHON_UNUSED int wraparound) {
-#if CYTHON_COMPILING_IN_CPYTHON
-    PyMappingMethods* mp;
-#if PY_MAJOR_VERSION < 3
-    PySequenceMethods* ms = Py_TYPE(obj)->tp_as_sequence;
-    if (likely(ms && ms->sq_slice)) {
-        if (!has_cstart) {
-            if (_py_start && (*_py_start != Py_None)) {
-                cstart = __Pyx_PyIndex_AsSsize_t(*_py_start);
-                if ((cstart == (Py_ssize_t)-1) && PyErr_Occurred()) goto bad;
-            } else
-                cstart = 0;
-        }
-        if (!has_cstop) {
-            if (_py_stop && (*_py_stop != Py_None)) {
-                cstop = __Pyx_PyIndex_AsSsize_t(*_py_stop);
-                if ((cstop == (Py_ssize_t)-1) && PyErr_Occurred()) goto bad;
-            } else
-                cstop = PY_SSIZE_T_MAX;
-        }
-        if (wraparound && unlikely((cstart < 0) | (cstop < 0)) && likely(ms->sq_length)) {
-            Py_ssize_t l = ms->sq_length(obj);
-            if (likely(l >= 0)) {
-                if (cstop < 0) {
-                    cstop += l;
-                    if (cstop < 0) cstop = 0;
-                }
-                if (cstart < 0) {
-                    cstart += l;
-                    if (cstart < 0) cstart = 0;
-                }
-            } else {
-                if (PyErr_ExceptionMatches(PyExc_OverflowError))
-                    PyErr_Clear();
-                else
-                    goto bad;
-            }
-        }
-        return ms->sq_slice(obj, cstart, cstop);
-    }
-#endif
-    mp = Py_TYPE(obj)->tp_as_mapping;
-    if (likely(mp && mp->mp_subscript))
-#endif
-    {
-        PyObject* result;
-        PyObject *py_slice, *py_start, *py_stop;
-        if (_py_slice) {
-            py_slice = *_py_slice;
-        } else {
-            PyObject* owned_start = NULL;
-            PyObject* owned_stop = NULL;
-            if (_py_start) {
-                py_start = *_py_start;
-            } else {
-                if (has_cstart) {
-                    owned_start = py_start = PyInt_FromSsize_t(cstart);
-                    if (unlikely(!py_start)) goto bad;
-                } else
-                    py_start = Py_None;
-            }
-            if (_py_stop) {
-                py_stop = *_py_stop;
-            } else {
-                if (has_cstop) {
-                    owned_stop = py_stop = PyInt_FromSsize_t(cstop);
-                    if (unlikely(!py_stop)) {
-                        Py_XDECREF(owned_start);
-                        goto bad;
-                    }
-                } else
-                    py_stop = Py_None;
-            }
-            py_slice = PySlice_New(py_start, py_stop, Py_None);
-            Py_XDECREF(owned_start);
-            Py_XDECREF(owned_stop);
-            if (unlikely(!py_slice)) goto bad;
-        }
-#if CYTHON_COMPILING_IN_CPYTHON
-        result = mp->mp_subscript(obj, py_slice);
-#else
-        result = PyObject_GetItem(obj, py_slice);
-#endif
-        if (!_py_slice) {
-            Py_DECREF(py_slice);
-        }
-        return result;
-    }
-    PyErr_Format(PyExc_TypeError,
-        "'%.200s' object is unsliceable", Py_TYPE(obj)->tp_name);
-bad:
-    return NULL;
-}
-
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
-    PyObject *self, *result;
-    PyCFunction cfunc;
-    cfunc = PyCFunction_GET_FUNCTION(func);
-    self = PyCFunction_GET_SELF(func);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = cfunc(self, arg);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
-#if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
     PyObject *result;
-    PyObject *args = PyTuple_New(1);
-    if (unlikely(!args)) return NULL;
-    Py_INCREF(arg);
-    PyTuple_SET_ITEM(args, 0, arg);
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
-#else
-    if (likely(PyCFunction_Check(func))) {
-#endif
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
-            return __Pyx_PyObject_CallMethO(func, arg);
-        }
-    }
-    return __Pyx__PyObject_CallOneArg(func, arg);
-}
-#else
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_Pack(1, arg);
-    if (unlikely(!args)) return NULL;
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-#endif
-
 #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
+    result = PyDict_GetItem(__pyx_d, name);
+    if (likely(result)) {
+        Py_INCREF(result);
+    } else {
 #else
-    if (likely(PyCFunction_Check(func))) {
+    result = PyObject_GetItem(__pyx_d, name);
+    if (!result) {
+        PyErr_Clear();
 #endif
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
-            return __Pyx_PyObject_CallMethO(func, NULL);
-        }
+        result = __Pyx_GetBuiltinName(name);
     }
-    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
+    return result;
 }
-#endif
+
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    if (likely(PyObject_TypeCheck(obj, type)))
+        return 1;
+    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
+                 Py_TYPE(obj)->tp_name, type->tp_name);
+    return 0;
+}
 
 static void __Pyx_RaiseArgumentTypeInvalid(const char* name, PyObject *obj, PyTypeObject *type) {
     PyErr_Format(PyExc_TypeError,
@@ -6079,42 +5440,6 @@ static CYTHON_INLINE void __Pyx_ErrFetch(PyObject **type, PyObject **value, PyOb
     tstate->curexc_traceback = 0;
 #else
     PyErr_Fetch(type, value, tb);
-#endif
-}
-
-static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
-                                  CYTHON_UNUSED int lineno, CYTHON_UNUSED const char *filename,
-                                  int full_traceback, CYTHON_UNUSED int nogil) {
-    PyObject *old_exc, *old_val, *old_tb;
-    PyObject *ctx;
-#ifdef WITH_THREAD
-    PyGILState_STATE state;
-    if (nogil)
-        state = PyGILState_Ensure();
-#endif
-    __Pyx_ErrFetch(&old_exc, &old_val, &old_tb);
-    if (full_traceback) {
-        Py_XINCREF(old_exc);
-        Py_XINCREF(old_val);
-        Py_XINCREF(old_tb);
-        __Pyx_ErrRestore(old_exc, old_val, old_tb);
-        PyErr_PrintEx(1);
-    }
-    #if PY_MAJOR_VERSION < 3
-    ctx = PyString_FromString(name);
-    #else
-    ctx = PyUnicode_FromString(name);
-    #endif
-    __Pyx_ErrRestore(old_exc, old_val, old_tb);
-    if (!ctx) {
-        PyErr_WriteUnraisable(Py_None);
-    } else {
-        PyErr_WriteUnraisable(ctx);
-        Py_DECREF(ctx);
-    }
-#ifdef WITH_THREAD
-    if (nogil)
-        PyGILState_Release(state);
 #endif
 }
 
@@ -6383,6 +5708,45 @@ bad:
     return module;
 }
 
+static double __Pyx__PyObject_AsDouble(PyObject* obj) {
+    PyObject* float_value;
+#if CYTHON_COMPILING_IN_PYPY
+    float_value = PyNumber_Float(obj);  if (0) goto bad;
+#else
+    PyNumberMethods *nb = Py_TYPE(obj)->tp_as_number;
+    if (likely(nb) && likely(nb->nb_float)) {
+        float_value = nb->nb_float(obj);
+        if (likely(float_value) && unlikely(!PyFloat_Check(float_value))) {
+            PyErr_Format(PyExc_TypeError,
+                "__float__ returned non-float (type %.200s)",
+                Py_TYPE(float_value)->tp_name);
+            Py_DECREF(float_value);
+            goto bad;
+        }
+    } else if (PyUnicode_CheckExact(obj) || PyBytes_CheckExact(obj)) {
+#if PY_MAJOR_VERSION >= 3
+        float_value = PyFloat_FromString(obj);
+#else
+        float_value = PyFloat_FromString(obj, 0);
+#endif
+    } else {
+        PyObject* args = PyTuple_New(1);
+        if (unlikely(!args)) goto bad;
+        PyTuple_SET_ITEM(args, 0, obj);
+        float_value = PyObject_Call((PyObject*)&PyFloat_Type, args, 0);
+        PyTuple_SET_ITEM(args, 0, 0);
+        Py_DECREF(args);
+    }
+#endif
+    if (likely(float_value)) {
+        double value = PyFloat_AS_DOUBLE(float_value);
+        Py_DECREF(float_value);
+        return value;
+    }
+bad:
+    return (double)-1;
+}
+
 static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
     if (end >= 0 && code_line > entries[end].code_line) {
@@ -6540,32 +5904,6 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
 bad:
     Py_XDECREF(py_code);
     Py_XDECREF(py_frame);
-}
-
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-    const long neg_one = (long) -1, const_zero = (long) 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
 }
 
 #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
@@ -7065,6 +6403,32 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES v
         int one = 1; int little = (int)*(unsigned char *)&one;
         unsigned char *bytes = (unsigned char *)&value;
         return _PyLong_FromByteArray(bytes, sizeof(enum NPY_TYPES),
+                                     little, !is_unsigned);
+    }
+}
+
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    const long neg_one = (long) -1, const_zero = (long) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+        }
+    } else {
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
                                      little, !is_unsigned);
     }
 }
